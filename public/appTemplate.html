@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Steam Game Price Fetcher</title>
+</head>
+<body>
+    <h2>Fetch Game Price by Game Name</h2>
+    <form action="/getGamePrice" method="GET">
+      <label for="gameName" width = "100px">Name of Game:</label>
+      <input type="text" id="gameName" name="gameName"><br><br>
+      <button type="submit">Get Price</button>
+    </form>
+    <div id="gamePrice"></div>
+    <script>
+      // JavaScript to handle the response and display the game price
+      const form = document.querySelector('form');
+      const gamePriceDiv = document.getElementById('gamePrice');
+      
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const gameName = document.getElementById('gameName').value;
+
+        // Make a request to the route to get the game price
+        const response = await fetch(`/getGamePrice?gameName=${gameName}`);
+        const data = await response.json();
+
+        if (data.gamePrice) {
+          // Display the game price
+          gamePriceDiv.innerHTML = `Game Price: ${data.gamePrice}`;
+        } else {
+          gamePriceDiv.innerHTML = data.message || 'Game not found';
+        }
+      });
+    </script>
+</body>
+</html>
