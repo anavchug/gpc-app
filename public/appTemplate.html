@@ -6,11 +6,12 @@
 <body>
     <h2>Fetch Game Price by Game Name</h2>
     <form action="/getGamePrice" method="GET">
-      <label for="gameName" width = "100px">Name of Game:</label>
+      <label for="gameName" width="100px">Name of Game:</label>
       <input type="text" id="gameName" name="gameName"><br><br>
       <button type="submit">Get Price</button>
     </form>
     <div id="gamePrice"></div>
+
     <script>
       // JavaScript to handle the response and display the game price
       const form = document.querySelector('form');
@@ -21,12 +22,26 @@
         const gameName = document.getElementById('gameName').value;
 
         // Make a request to the route to get the game price
-        const response = await fetch(`/getGamePrice?gameName=${gameName}`);
+        const response = await fetch(`/getPrices?gameName=${gameName}`);
         const data = await response.json();
 
-        if (data.gamePrice) {
-          // Display the game price
-          gamePriceDiv.innerHTML = `Game Price: ${data.gamePrice}`;
+        if (data.formattedData) {
+          // Split the formatted data by newline and create an array
+          const formattedLines = data.formattedData.split('\n');
+
+          // Create an HTML list to display sellers and prices
+          const list = document.createElement('ul');
+
+          // Loop through the lines and create list items
+          formattedLines.forEach((line) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = line;
+            list.appendChild(listItem);
+          });
+
+          // Append the list to the gamePriceDiv
+          gamePriceDiv.innerHTML = ''; // Clear the div
+          gamePriceDiv.appendChild(list);
         } else {
           gamePriceDiv.innerHTML = data.message || 'Game not found';
         }

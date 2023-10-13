@@ -3,58 +3,73 @@ var express = require('express');
 var router = express.Router();
 const fs = require('fs');
 const path = require("path");
+const Data = require('./Data');
+console.log(Data);
 
 router.get('/', function(req, res, next) {
     res.sendFile(path.resolve('public/appTemplate.html') );
     console.log("App Template loaded");
 });
 
-router.get('/getGamePrice', async (req, res) => {
-    try {
-      const { gameName } = req.query;
-  
-      // Construct the URL for the API call to get the App ID
-      const apiUrl = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/';
-  
-      // Make the API call to get the App ID
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-  
-      // Find the game by its name in the data
-      const game = data.applist.apps.find((app) => app.name.toLowerCase() === gameName.toLowerCase());
-  
-      if (game) {
-        // Now you have the App ID of the game
-        const appId = game.appid;
-  
-        // Construct the URL for the API call to get the game price
-        const priceApiUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}`;
-  
-        // Make the API call to get the game price
-        const priceResponse = await fetch(priceApiUrl);
-        const priceData = await priceResponse.json();
-  
-        // Check if the game data is available and the request was successful
-        if (priceData[appId].success) {
-          const gameData = priceData[appId].data;
-          if (gameData && gameData.price_overview) {
-            const price = gameData.price_overview.final_formatted;
-  
-            // Send the price as JSON response
-            res.json({ gamePrice: price });
-            console.log("Price fetched successfully");
-          } else {
-            res.json({ message: 'Price information not available for this game.' });
-          }
-        } else {
-          res.json({ error: priceData[appId].error });
-        }
-      } else {
-        res.json({ message: 'Game not found' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
+router.get('/getPrices', async (req, res) => {
+  const { gameName } = req.query;
+  const url = 'https://www.cheapshark.com/api/1.0/games?title=' + gameName;
+  const gameOnPage = await fetch(url);
+  const gameInJson = await gameOnPage.json();
+  console.log(gameInJson);
+
+  const game = gameInJson.find((obj) => obj.external.toLowerCase() === gameName.toLowerCase());
+  const gameId = game.gameID;
+
+  const gameIdUrl = 'https://www.cheapshark.com/api/1.0/games?id=' + gameId;
+  const gameObject = await fetch(gameIdUrl);
+  const gameObjectInJson = await gameObject.json();
+  console.log(gameObjectInJson);
+
+  //Loop through the gameObjectInJson data and get all the store ids in deals for that game
+  const storeIds = []
+  const storePrices = []
+  gameObjectInJson.deals.forEach(obj =>{
+    if(obj.storeID != null){
+      storeIds.push(obj.storeID);
+      storePrices.push(obj.price);
     }
   });
+  console.log(storeIds);
+  console.log(storePrices);
+
+
+  //getting the store json data
+  const dataInstance = new Data();
+  const jsonData = dataInstance.getData();
+
+  // loop through the store data and get the names of the stores for the requested game 
+  const storeNames = [];
+  for (let i = 0; i < gameObjectInJson.deals.length; i++) {
+    const deal = gameObjectInJson.deals[i];
+    const storeID = deal.storeID;
   
+    // Search for the corresponding store in the jsonData array
+    const store = jsonData.find((store) => store.storeID === storeID);
+  
+    if (store) {
+      storeNames.push(store.storeName);
+    }
+  }
+  console.log(storeNames);
+
+  // Construct an array of formatted strings (store name and price)
+  const formattedData = storeNames.map((storeName, index) => `${storeName}: $${storePrices[index]}`);
+
+  // Combine the formatted strings into a single string
+  const formattedDataString = formattedData.join('\n');
+
+  // Send the formatted data as a JSON response
+  res.json({ formattedData: formattedDataString });
+  console.log("Price fetched successfully");
+
+  //To get the link of the website, you can use- www.cheapshark.com/redirect?dealID= -----
+
+});
+
 module.exports = router;
