@@ -1,11 +1,14 @@
 const express = require('express');
 const fetch = require('node-fetch');
-const app = express();
 const cors = require('cors');
+var applicationRouter = require('./routes/application');
+var publicRouter = require('./routes/public');
+
+const app = express();
 
 app.use(express.json());
-var publicRouter = require('./routes/public');
 app.use('/', publicRouter);
+app.use('/', applicationRouter)
 app.use(cors()); // Enable CORS
 
 const port = process.env.PORT || 3000;

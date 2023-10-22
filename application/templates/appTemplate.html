@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Game Price Fetcher</title>
+</head>
+<body>
+    <h2>Fetch Game Price by Game Name</h2>
+    <!-- <form action="/getGamePrice" method="GET"> -->
+      <form action="/getListOfGames" method="GET">
+      <label for="gameName" width="100px">Name of Game:</label>
+      <input type="text" id="gameName" name="gameName"><br><br>
+      <button type="submit">Search</button>
+    </form>
+    <div id="listOfGames"></div>
+    <div id="gamePrices" style="display: none;">
+      <h2>Game Prices</h2>
+      <ul id="priceList"></ul>
+    </div>
+    
+
+<script>
+// JavaScript to handle the response and display the game names as links
+const form = document.querySelector('form');
+const listOfGames = document.getElementById('listOfGames');
+const gamePrices = document.getElementById('gamePrices');
+const priceList = document.getElementById('priceList'); // Get the ul element
+const gameNameInput = document.getElementById('gameName');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const gameName = gameNameInput.value;
+
+  // Make a request to the route to get the list of games
+  const response = await fetch(`/getListOfGames?gameName=${gameName}`);
+  const data = await response.json();
+
+  if (data.length > 0) {
+    // Create an HTML list to display game names as links
+    const list = document.createElement('ul');
+
+    // Loop through the games and create list items with links
+    data.forEach((game) => {
+      const listItem = document.createElement('li');
+      const gameLink = document.createElement('a');
+      gameLink.textContent = game.external;
+      gameLink.href = `javascript:void(0);`; // Make it a non-navigating link
+
+      gameLink.addEventListener('click', async () => {
+        // When a game link is clicked, fetch its prices
+        const pricesResponse = await fetch(`/getPrices?gameLinkName=${gameLink.textContent}`);
+        const pricesData = await pricesResponse.json();
+
+        if (pricesData.formattedData) {
+          // Clear the previous list of prices
+          priceList.innerHTML = '';
+
+          // Split the formatted data by newline and create list items
+          const formattedLines = pricesData.formattedData.split('\n');
+          formattedLines.forEach((line) => {
+            const priceListItem = document.createElement('li');
+            priceListItem.textContent = line;
+            priceList.appendChild(priceListItem);
+          });
+
+          // Display the prices
+          gamePrices.style.display = 'block';
+        } else {
+          gamePrices.innerHTML = 'Prices not found for this game';
+          gamePrices.style.display = 'block';
+        }
+
+        // Hide the list of games
+        listOfGames.style.display = 'none';
+      });
+
+      listItem.appendChild(gameLink);
+      list.appendChild(listItem);
+    });
+
+    // Append the list to the listOfGames div
+    listOfGames.innerHTML = ''; // Clear the div
+    listOfGames.appendChild(list);
+  } else {
+    listOfGames.innerHTML = 'No games found with that name';
+  }
+});
+
+</script>
+    
+    
+</body>
+</html>
