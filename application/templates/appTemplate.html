@@ -1,92 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Price Fetcher</title>
+  <link rel="stylesheet" type="text/css" href="/appTemplate.css">
 </head>
 <body>
-    <h2>Fetch Game Price by Game Name</h2>
-    <!-- <form action="/getGamePrice" method="GET"> -->
-      <form action="/getListOfGames" method="GET">
-      <label for="gameName" width="100px">Name of Game:</label>
-      <input type="text" id="gameName" name="gameName"><br><br>
-      <button type="submit">Search</button>
-    </form>
-    <div id="listOfGames"></div>
-    <div id="gamePrices" style="display: none;">
-      <h2>Game Prices</h2>
-      <ul id="priceList"></ul>
-    </div>
-    
+  <h2>Fetch Game Price by Game Name</h2>
+  <form action="/getListOfGames" method="GET">
+    <!-- <label for="gameName" style="width: 100px;">Name of Game:</label> -->
+    <input type="text" id="gameName" name="gameName" placeholder="Search"><br><br>
+    <button type="submit">Search</button>
+  </form>
+  <div class="games-container">
+    <div class="game-cards" style="display: none;"></div>
+  </div>
+  <div id="gamePrices" style="display: none;">
+    <h2 id="gameNameRow">Game Name</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Store</th>
+          <th>Price</th>
+          <th>Retail Price</th>
+        </tr>
+      </thead>
+      <tbody id="priceTable"></tbody>
+    </table>
+    <button id="backButton">Back to Game List</button>
+  </div>
 
-<script>
-// JavaScript to handle the response and display the game names as links
-const form = document.querySelector('form');
-const listOfGames = document.getElementById('listOfGames');
-const gamePrices = document.getElementById('gamePrices');
-const priceList = document.getElementById('priceList'); // Get the ul element
-const gameNameInput = document.getElementById('gameName');
+  <script>
+    // JavaScript to handle the response and display the game names and thumbnails
+    const form = document.querySelector('form');
+    const gameCards = document.querySelector('.game-cards');
+    const gamePrices = document.getElementById('gamePrices');
+    const priceTable = document.getElementById('priceTable');
+    const backButton = document.getElementById('backButton');
+    const gameNameInput = document.getElementById('gameName');
+    let currentGame = null; // Store the currently viewed game
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const gameName = gameNameInput.value;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const gameName = gameNameInput.value;
 
-  // Make a request to the route to get the list of games
-  const response = await fetch(`/getListOfGames?gameName=${gameName}`);
-  const data = await response.json();
+      // Make a request to the route to get the list of games
+      const response = await fetch(`/getListOfGames?gameName=${gameName}`);
+      const { searchResults, thumbnails } = await response.json();
 
-  if (data.length > 0) {
-    // Create an HTML list to display game names as links
-    const list = document.createElement('ul');
+      // Clear the previously displayed game cards
+      gameCards.innerHTML = '';
 
-    // Loop through the games and create list items with links
-    data.forEach((game) => {
-      const listItem = document.createElement('li');
-      const gameLink = document.createElement('a');
-      gameLink.textContent = game.external;
-      gameLink.href = `javascript:void(0);`; // Make it a non-navigating link
+      if (searchResults.length > 0) {
+        // Loop through the games and create game cards with links and thumbnails
+        searchResults.forEach((game, index) => {
+          const gameCard = document.createElement('div');
+          gameCard.className = 'game-card';
 
-      gameLink.addEventListener('click', async () => {
-        // When a game link is clicked, fetch its prices
-        const pricesResponse = await fetch(`/getPrices?gameLinkName=${gameLink.textContent}`);
-        const pricesData = await pricesResponse.json();
+          const gameLink = document.createElement('a');
+          const gameThumbnail = document.createElement('img'); // Create an image element for the thumbnail
 
-        if (pricesData.formattedData) {
-          // Clear the previous list of prices
-          priceList.innerHTML = '';
-
-          // Split the formatted data by newline and create list items
-          const formattedLines = pricesData.formattedData.split('\n');
-          formattedLines.forEach((line) => {
-            const priceListItem = document.createElement('li');
-            priceListItem.textContent = line;
-            priceList.appendChild(priceListItem);
+          gameLink.textContent = game.external;
+          gameLink.href = `javascript:void(0);`; // Make it a non-navigating link
+          gameLink.addEventListener('click', async () => {
+            // When a game link is clicked, store the current game
+            currentGame = game;
+            displayGamePrices(game.external); // Call a function to display game prices
           });
 
-          // Display the prices
-          gamePrices.style.display = 'block';
-        } else {
-          gamePrices.innerHTML = 'Prices not found for this game';
-          gamePrices.style.display = 'block';
-        }
+          gameThumbnail.src = thumbnails[index]; // Set the thumbnail source
 
-        // Hide the list of games
-        listOfGames.style.display = 'none';
-      });
+          gameCard.appendChild(gameThumbnail);
+          gameCard.appendChild(gameLink);
+          gameCards.appendChild(gameCard);
+        });
 
-      listItem.appendChild(gameLink);
-      list.appendChild(listItem);
+        // Display the game cards and hide others
+        gameCards.style.display = 'block';
+        gamePrices.style.display = 'none';
+      } else {
+        gameCards.innerHTML = 'No games found with that name';
+      }
     });
 
-    // Append the list to the listOfGames div
-    listOfGames.innerHTML = ''; // Clear the div
-    listOfGames.appendChild(list);
-  } else {
-    listOfGames.innerHTML = 'No games found with that name';
-  }
-});
+    // Function to display game prices
+    async function displayGamePrices(gameName) {
+      gameNameRow.textContent = `${gameName}`;
+      // Make a request to the route to get game prices
+      const pricesResponse = await fetch(`/getPrices?gameLinkName=${gameName}`);
+      const pricesData = await pricesResponse.json();
 
-</script>
-    
-    
+      if (pricesData.storePrices) {
+        // Clear the previous list of prices
+        priceTable.innerHTML = '';
+
+        // Loop through the storePrices, storeNames, and retailPrices arrays
+        for (let i = 0; i < pricesData.storePrices.length; i++) {
+          const storeName = pricesData.storeNames[i];
+          const storePrice = pricesData.storePrices[i];
+          const retailPrice = pricesData.retailPrices[i];
+          const dealId = pricesData.dealIds[i];
+
+          // Create a new row for each store in the table
+          const row = document.createElement('tr');
+          const storeCell = document.createElement('td');
+          const priceCell = document.createElement('td');
+          const retailPriceCell = document.createElement('td');
+          const storeLink = document.createElement('a');
+
+          storeLink.textContent = storeName;
+          storeLink.href = `https://www.cheapshark.com/redirect?dealID=${dealId}`;
+          storeLink.target = '_blank'; // Open link in a new tab
+
+          storeCell.appendChild(storeLink);
+          priceCell.textContent = `$${storePrice}`;
+          retailPriceCell.textContent = `$${retailPrice}`;
+
+          row.appendChild(storeCell);
+          row.appendChild(priceCell);
+          row.appendChild(retailPriceCell);
+
+          priceTable.appendChild(row);
+        }
+
+        // Display the prices and hide the game cards
+        gamePrices.style.display = 'block';
+        gameCards.style.display = 'none';
+      } else {
+        gamePrices.innerHTML = 'Prices not found for this game';
+        gamePrices.style.display = 'block';
+        gameCards.style.display = 'none';
+      }
+    }
+
+    // Add an event listener to the back button to go back to the game list
+    backButton.addEventListener('click', () => {
+      if (currentGame) {
+        displayGameList();
+      }
+    });
+
+    // Function to display the game list
+    function displayGameList() {
+      gamePrices.style.display = 'none';
+      gameCards.style.display = 'block';
+    }
+  </script>
 </body>
 </html>

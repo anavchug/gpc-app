@@ -19,31 +19,17 @@
 //     }
 
 //     renderContentPage() { //Render Content Page Here
-//         this.template = fs.readFileSync(path.resolve('./application/template/contentTemplate.html')).toString(); // read in the /template/contentTemplate.html file.
+//         this.template = fs.readFileSync(path.resolve('./application/templates/listOfGames.html')).toString(); // read in the /template/contentTemplate.html file.
         
 //         //Find the object from the JSON data by comparing it to the passed in url
 //         let url = this.req.url;
+
 //         let contentObject = this.appData.find(obj => obj.url === url);
 
 //         //if object is found, get its properties and put in the template
 //         this.template = this.template.replace("{name}", contentObject.name);
 //         this.template = this.template.replace("{desc}", contentObject.desc);
 //         this.template = this.template.replace("{image}", contentObject.image);
-
-//         // this.template = this.template.replace("{data}", contentObject);
-
-//         //Getting indexes of current url and next url 
-//         let currentIndex = this.appData.findIndex(obj => obj.url === url);
-//         let nextIndex = (currentIndex + 1) % this.appData.length;
-
-//         //getting the next page url
-//         let nextPageUrl = this.appData[nextIndex].url;
-//         nextPageUrl = "/jujutsukaisen" + nextPageUrl;
-
-//         //Putting the index and url in template
-//         this.template = this.template.replace("{nextPage}" , nextPageUrl);
-//         this.template = this.template.replace("{nextIndex}" , nextIndex + 1);
-//         this.template = this.template.replace("{mainPage}", "/jujutsukaisen");
 
 //     }
 
