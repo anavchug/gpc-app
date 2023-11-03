@@ -7,12 +7,43 @@
   <link rel="stylesheet" type="text/css" href="/appTemplate.css">
 </head>
 <body>
-  <h2>Fetch Game Price by Game Name</h2>
-  <form action="/getListOfGames" method="GET">
-    <!-- <label for="gameName" style="width: 100px;">Name of Game:</label> -->
-    <input type="text" id="gameName" name="gameName" placeholder="Search"><br><br>
-    <button type="submit">Search</button>
-  </form>
+
+<!-- Code for the header of the website -->
+<header class="header">
+  <div class="header-logo">
+    <img src="logo.png" alt="GalaxyGameSavers Logo">
+  </div>
+  <div class="header-search">
+    <form action="/getListOfGames" method="GET" class="d-flex">
+      <input type="text" id="gameName" name="gameName" class="form-control me-2" placeholder="Search Game By">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+  <nav class="main-nav">
+    <ul class="nav-list">
+      <li class="nav-item"><a href="#">Home</a></li>
+      <li class="nav-item"><a href="#">Browse</a></li>
+      <li class="nav-item"><a href="#">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- Code for the footer of the website -->
+<!-- <footer class="footer">
+  <div class="footer-content">
+    <p>&copy; GalaxyGameSavers</p>
+    <ul class="footer-links">
+      <li><a href="/privacy-policy">Privacy Policy</a></li>
+      <li><a href="/terms-of-service">Terms of Service</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+    </ul>
+  </div>
+</footer> -->
+
+
+
+
   <div class="games-container">
     <div class="game-cards" style="display: none;"></div>
   </div>
@@ -86,6 +117,8 @@
 
     // Function to display game prices
     async function displayGamePrices(gameName) {
+
+
       gameNameRow.textContent = `${gameName}`;
       // Make a request to the route to get game prices
       const pricesResponse = await fetch(`/getPrices?gameLinkName=${gameName}`);
@@ -134,6 +167,7 @@
       }
     }
 
+    
     // Add an event listener to the back button to go back to the game list
     backButton.addEventListener('click', () => {
       if (currentGame) {
@@ -146,6 +180,13 @@
       gamePrices.style.display = 'none';
       gameCards.style.display = 'block';
     }
+
+
+
   </script>
+
+</div>
+<div id="search-overlay"></div>
+
 </body>
 </html>
