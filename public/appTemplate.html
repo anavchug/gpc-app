@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Price Fetcher</title>
-  <link rel="stylesheet" type="text/css" href="/appTemplate.css">
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
 
 <!-- Code for the header of the website -->
 <header class="header">
   <div class="header-logo">
-    <img src="logo.png" alt="GalaxyGameSavers Logo">
+    <img src="/images/logo.png" alt="GalaxyGameSavers Logo">
   </div>
   <div class="header-search">
     <form action="/getListOfGames" method="GET" class="d-flex">
@@ -28,7 +28,6 @@
   </nav>
 </header>
 
-
 <!-- Code for the footer of the website -->
 <!-- <footer class="footer">
   <div class="footer-content">
@@ -41,8 +40,7 @@
   </div>
 </footer> -->
 
-
-
+<ul id="titles-list"></ul>
 
   <div class="games-container">
     <div class="game-cards" style="display: none;"></div>
@@ -63,6 +61,7 @@
   </div>
 
   <script>
+    
     // JavaScript to handle the response and display the game names and thumbnails
     const form = document.querySelector('form');
     const gameCards = document.querySelector('.game-cards');
@@ -70,11 +69,13 @@
     const priceTable = document.getElementById('priceTable');
     const backButton = document.getElementById('backButton');
     const gameNameInput = document.getElementById('gameName');
+    const titlesList = document.getElementById('titles-list');
     let currentGame = null; // Store the currently viewed game
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const gameName = gameNameInput.value;
+      titlesList.style.display = 'none';
 
       // Make a request to the route to get the list of games
       const response = await fetch(`/getListOfGames?gameName=${gameName}`);
@@ -117,8 +118,6 @@
 
     // Function to display game prices
     async function displayGamePrices(gameName) {
-
-
       gameNameRow.textContent = `${gameName}`;
       // Make a request to the route to get game prices
       const pricesResponse = await fetch(`/getPrices?gameLinkName=${gameName}`);
@@ -166,8 +165,6 @@
         gameCards.style.display = 'none';
       }
     }
-
-    
     // Add an event listener to the back button to go back to the game list
     backButton.addEventListener('click', () => {
       if (currentGame) {
@@ -180,12 +177,27 @@
       gamePrices.style.display = 'none';
       gameCards.style.display = 'block';
     }
+    document.addEventListener("DOMContentLoaded", async function() {
+    try {
+        const response = await fetch('/popularDeals'); 
+        const data = await response.json();
 
+        if (data.titles && data.titles.length > 0) {
+            const titlesList = document.getElementById('titles-list');
 
+            data.titles.forEach(title => {
+                const li = document.createElement('li');
+                li.textContent = title;
+                titlesList.appendChild(li);
+            });
+        }
+    } catch (error) {
+        console.error(error);
+    }
+  });
 
   </script>
 
-</div>
 <div id="search-overlay"></div>
 
 </body>

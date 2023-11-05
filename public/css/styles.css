@@ -272,5 +272,14 @@ td {
   z-index: 999; /* Ensure it's on top of everything */
   transition: opacity 0.3s; /* Transition for smooth appearance */
 }
+#titles-list {
+  list-style: none; 
+  padding: 0;
+  text-align: center; 
+  display: block;
+}
 
+#titles-list li {
+  color: white; 
+}
 

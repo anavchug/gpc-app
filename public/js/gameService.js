@@ -1,4 +1,15 @@
-const Data = require('../application/data/Data');
+const Data = require('../../application/data/Data');
+
+async function popularDeals(){
+  const url = 'https://www.cheapshark.com/api/1.0/deals?storeID=1&upperPrice=15';
+  const popularDeals = await fetch(url);
+  const popularDealsJson = await popularDeals.json();
+  const titles = [];
+  popularDealsJson.forEach(game =>{
+    titles.push(game.title);
+  });
+  return titles;
+}
 
 async function getListOfGames(gameName) {
     const url = 'https://www.cheapshark.com/api/1.0/games?title=' + gameName;
@@ -48,4 +59,4 @@ async function getListOfGames(gameName) {
     }
     return {storePrices, storeNames, retailPrices, dealIds};
   }
-  module.exports = { getListOfGames, getPrices };
+  module.exports = { getListOfGames, getPrices, popularDeals };

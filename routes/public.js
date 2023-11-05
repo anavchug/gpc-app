@@ -3,11 +3,21 @@ var express = require('express');
 var router = express.Router();
 const fs = require('fs');
 const path = require("path");
-const gameService = require('../application/gameService');
+const gameService = require('../public/js/gameService');
 var searchResults = [];
 
 router.get('/', function(req, res, next) {
-  res.sendFile(path.resolve('./application/templates/appTemplate.html') );
+  res.sendFile(path.resolve('./public/appTemplate.html') );
+});
+
+router.get('/popularDeals', async (req, res, next) => {
+  try {
+    const titles = await gameService.popularDeals();
+    res.json({ titles });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
 });
 
 router.get('/getListOfGames', async (req, res) => {
