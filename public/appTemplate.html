@@ -40,7 +40,11 @@
   </div>
 </footer> -->
 
-<ul id="titles-list"></ul>
+<div class = "popularDeals">
+  <h2>Popular Deals Under $15</h2>
+  <ul id="titles-list"></ul>
+</div>
+
 
   <div class="games-container">
     <div class="game-cards" style="display: none;"></div>
@@ -70,12 +74,14 @@
     const backButton = document.getElementById('backButton');
     const gameNameInput = document.getElementById('gameName');
     const titlesList = document.getElementById('titles-list');
+    const titlesDiv = document.querySelector(".popularDeals");
     let currentGame = null; // Store the currently viewed game
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const gameName = gameNameInput.value;
       titlesList.style.display = 'none';
+      titlesDiv.style.display = 'none'
 
       // Make a request to the route to get the list of games
       const response = await fetch(`/getListOfGames?gameName=${gameName}`);

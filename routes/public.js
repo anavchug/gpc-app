@@ -53,9 +53,4 @@ router.get('/getPrices', async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 });
-
-  // For the suggested titles for good deals, we can display the ones that are less than atleast $10 from the retail price
-  // or use this- https://www.cheapshark.com/api/1.0/deals?storeID=1&upperPrice=15 this is better
-  // https://www.cheapshark.com/api/1.0/deals?upperPrice=15 , there is also an isOnSale parameter, look into that as well 
-
 module.exports = router;

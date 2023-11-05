@@ -279,7 +279,33 @@ td {
   display: block;
 }
 
+.popularDeals {
+  width: 80%; 
+  max-width: 600px; 
+  margin: 0 auto; 
+  padding: 20px; 
+  border: 5px solid #ccc; 
+  text-align: center; 
+}
+
+.popularDeals h2 {
+  font-size: 24px; /* Adjust the title font size */
+}
+
+#titles-list {
+  list-style: none; /* Remove list bullets */
+  padding: 0; /* Remove list padding */
+
+}
+
 #titles-list li {
-  color: white; 
+  margin: 5px 0; /* Add spacing between titles */
+  font-size: 18px; /* Adjust the title font size */
+  color: white;
+}
+
+.popularDeals h2{
+color: white;
+text-align: center;
 }
 
