@@ -9,6 +9,9 @@ var searchResults = [];
 router.get('/', function(req, res, next) {
   res.sendFile(path.resolve('./public/appTemplate.html') );
 });
+router.get('/about', function(req, res, next) {
+  res.sendFile(path.resolve('./public/about.html') );
+});
 
 router.get('/popularDeals', async (req, res, next) => {
   try {

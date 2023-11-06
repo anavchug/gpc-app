@@ -309,3 +309,26 @@ color: white;
 text-align: center;
 }
 
+#about-content {
+  text-align: center;
+  color: #fff; 
+  padding: 20px; 
+}
+#about-content h1 {
+  font-size: 28px; 
+  margin: 0;
+  color: white; 
+}
+
+#about-content div {
+  font-size: 16px; 
+  line-height: 1.5; 
+  margin-top: 20px; 
+}
+
+#about-content div br {
+  display: block; 
+  margin: 10px 0; 
+}
+
+
