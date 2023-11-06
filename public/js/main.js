@@ -7,6 +7,7 @@
     const backButton = document.getElementById('backButton');
     const gameNameInput = document.getElementById('gameName');
     const aboutContent = document.querySelector(".about-content");
+    
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -77,10 +78,20 @@
       // Make a request to the route to get game prices
       const pricesResponse = await fetch(`/getPrices?gameLinkName=${gameName}`);
       const pricesData = await pricesResponse.json();
+      console.log("Prices Data");
+      console.log(pricesData);
 
       if (pricesData.storePrices) {
         // Clear the previous list of prices
         priceTable.innerHTML = '';
+        
+        const oldGameImage = gamePrices.querySelector("img");
+        if (oldGameImage) {
+            oldGameImage.remove();
+        }
+        let gameImage = document.createElement("img");
+        gameImage.src = pricesData.imageSource;
+        gamePrices.append(gameImage);
 
         // Loop through the storePrices, storeNames, and retailPrices arrays
         for (let i = 0; i < pricesData.storePrices.length; i++) {
@@ -110,7 +121,7 @@
 
           priceTable.appendChild(row);
         }
-
+        
         // Display the prices and hide the game cards
         gamePrices.style.display = 'block';
         gameCards.style.display = 'none';
