@@ -9,8 +9,23 @@ var searchResults = [];
 router.get('/', function(req, res, next) {
   res.sendFile(path.resolve('./public/appTemplate.html') );
 });
+
 router.get('/about', function(req, res, next) {
   res.sendFile(path.resolve('./public/about.html') );
+});
+
+router.get('/browse', function(req, res, next) {
+  res.sendFile(path.resolve('./public/browse.html') );
+});
+
+router.get('/stores', async (req, res, next) => {
+  try {
+    const stores = await gameService.getStores();
+    res.json(stores);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
 });
 
 router.get('/popularDeals', async (req, res, next) => {

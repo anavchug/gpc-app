@@ -11,6 +11,14 @@ async function popularDeals(){
   return titles;
 }
 
+async function getStores(){
+  const url = "https://www.cheapshark.com/api/1.0/stores";
+  const stores = await fetch(url);
+  const storesJson = await stores.json();
+  return storesJson;
+
+}
+
 async function getListOfGames(gameName) {
     const url = 'https://www.cheapshark.com/api/1.0/games?title=' + gameName;
     const gameOnPage = await fetch(url);
@@ -53,7 +61,7 @@ async function getListOfGames(gameName) {
     for (let i = 0; i < gameObjectInJson.deals.length; i++) {
       const deal = gameObjectInJson.deals[i];
       const storeID = deal.storeID;
-  
+      
       const store = jsonData.find((store) => store.storeID === storeID);
   
       if (store) {
@@ -62,4 +70,4 @@ async function getListOfGames(gameName) {
     }
     return {storePrices, storeNames, retailPrices, dealIds, imageSource};
   }
-  module.exports = { getListOfGames, getPrices, popularDeals };
+  module.exports = { getListOfGames, getPrices, popularDeals, getStores };

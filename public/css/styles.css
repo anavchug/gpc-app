@@ -222,7 +222,7 @@ table {
   width: auto; /* Set the width to auto to center it on the page */
   margin: 0 auto; /* Center the table horizontally */
   border-collapse: separate; /* Use separate to add space between borders */
-  border-spacing: 10px; /* Adjust the spacing as needed */
+  border-spacing: 1px; /* Adjust the spacing as needed */
 }
 
 /* Style for table headers (th) */
@@ -242,11 +242,9 @@ td {
     background-color: #007BFF;
     color: #fff;
   }
-
-  tbody tr:nth-child(odd) {
+  tbody tr {
     background-color: #f2f2f2;
-  }
-
+}
   button#backButton {
     margin: 20px 0;
     padding: 10px 20px;

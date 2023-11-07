@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us</title>
+  <title>Browse</title>
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <script type="module" src="./js/browse.js" defer></script>
   <script src="./js/main.js" defer></script>
   <script src="./js/popularDeals.js"></script>
 </head>
@@ -40,13 +41,22 @@
     </div>
   </footer> -->
   
-  <!-- About page content -->
-  <div class="about-content">
-    <h1>About Us</h1>
-    <p>Welcome to GalaxyGameSavers, your source for the latest and greatest deals on video games! Our mission is to help you find the best gaming deals, discounts, and offers from various online stores. Whether you're a casual gamer or a hardcore enthusiast, we've got you covered.</p>
-    <p>Our team is dedicated to providing you with up-to-date information on game prices, promotions, and where to find the best bargains. We're passionate about gaming, and we want to help you save money while enjoying your favorite titles.</p>
-    <p>Feel free to explore our website, search for your favorite games, and discover the best deals available. Happy gaming!</p>
+  <div id="dealList">
+    <table>
+      <thead>
+        <tr>
+          <th>Store</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Deal Rating</th>
+          <th>Release</th>
+        </tr>
+      </thead>
+      <tbody id="dealTableBody"></tbody>
+    </table>
   </div>
+  <div id="loading" style="color: white;">Loading...</div>
+
   <div class = "popularDeals" style="display: none;">
     <h2>Popular Deals Under $15</h2>
     <ul id="titles-list"></ul>
