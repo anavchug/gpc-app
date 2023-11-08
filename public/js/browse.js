@@ -1,18 +1,22 @@
+const dealTableBody = document.getElementById("dealTableBody");
+const loading = document.getElementById("loading");
 
-async function browseDeals(pageNumber) {
-    const url = "https://www.cheapshark.com/api/1.0/deals?upperPrice=100&pageNumber=" + pageNumber;
+async function browseDeals(lowerPrice, upperPrice, pageNumber) {
+    const url = `https://www.cheapshark.com/api/1.0/deals?lowerPrice=${lowerPrice}&upperPrice=${upperPrice}&pageNumber=${pageNumber}`;
     const randomTitles = await fetch(url);
     const randomTitlesJson = await randomTitles.json();
     return randomTitlesJson;
   }
   
   let pageNumber = 1;
-  const dealTableBody = document.getElementById("dealTableBody");
-  const loading = document.getElementById("loading");
 
-  async function loadMoreDeals() {
+  //getting the store data
+  const storeData = await fetch(`/stores`);
+  const storeDataJson = await storeData.json();
+
+  async function loadMoreDeals(lowerPrice, upperPrice) {
     loading.style.display = "block";
-    const deals = await browseDeals(pageNumber);
+    const deals = await browseDeals(lowerPrice, upperPrice, pageNumber);
     loading.style.display = "none";
   
     if (deals.length === 0) {
@@ -21,10 +25,6 @@ async function browseDeals(pageNumber) {
       return;
     }
     
-    //getting the store data
-    const storeData = await fetch(`/stores`);
-    const storeDataJson = await storeData.json();
-
     deals.forEach(async deal => {
       const row = document.createElement("tr");
   
@@ -39,9 +39,8 @@ async function browseDeals(pageNumber) {
       storeImage.style.width = "20px"; 
       storeImage.style.height = "20px"; 
 
-// Append the image to the store cell
-    storeCell.appendChild(storeImage);
-      // storeCell.textContent = store.storeName;
+    // Append the image to the store cell
+      storeCell.appendChild(storeImage);
       row.appendChild(storeCell);
   
       // Title cell with image
@@ -84,14 +83,25 @@ async function browseDeals(pageNumber) {
     });
   
     pageNumber++;
+    
   }
-  
+  console.log(pageNumber);
   // Initial load
-  loadMoreDeals();
+  const initialMinValue = Math.round(slider.noUiSlider.get()[0]);
+  const initialMaxValue = Math.round(slider.noUiSlider.get()[1]);
   
-  // Infinite scrolling
-  window.addEventListener("scroll", () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      loadMoreDeals();
-    }
-  });
+  console.log("Min: " + initialMinValue);
+  console.log("Max: " + initialMaxValue);
+
+  loadMoreDeals(initialMinValue, initialMaxValue);
+
+  console.log("Load More deals called");
+  
+// Infinite scrolling
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    const currentMinValue = Math.round(slider.noUiSlider.get()[0]);
+    const currentMaxValue = Math.round(slider.noUiSlider.get()[1]);
+    loadMoreDeals(currentMinValue, currentMaxValue);
+  }
+});

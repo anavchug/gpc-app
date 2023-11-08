@@ -317,5 +317,46 @@ text-align: center;
   margin: 0 auto; 
 }
 
+.slidecontainer {
+  width: 20%;
+  margin: 0 auto;
+  text-align: center;
+}
 
+#slider {
+  width: 80%;
+  margin: 0 auto;
+  background: linear-gradient(to right, #4CAF50, #4CAF50);
+}
+
+.noUi-handle {
+  background: #4CAF50;
+  border: 2px solid #4CAF50;
+  width: 25px;
+  height: 25px;
+  transform: translate(-50%, -50%);
+  transition: background 0.2s, border 0.2s;
+}
+
+.noUi-handle:hover {
+  background: #45a049;
+  border: 2px solid #45a049;
+}
+
+.noUi-connect {
+  background: #4CAF50;
+  height: 8px;
+}
+
+p {
+  font-size: 18px;
+  margin-top: 10px;
+  color:#45a049;
+
+}
+
+#demo1, #demo2 {
+  font-weight: bold;
+  color: #4CAF50;
+}
 
