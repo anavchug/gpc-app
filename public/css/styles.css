@@ -203,6 +203,7 @@ table {
   background-color: #242323; /* Set the background color to black */
   color: #fff;
   width: 80%;
+  text-align: center;
 }
 /* Style for table headers (th) */
 th {
@@ -211,6 +212,7 @@ th {
   background-color: #242323; /* Set the background color inside the header cells */
   color: #fff;
 }
+
 
 
 /* Style for table data cells (td) */
@@ -263,12 +265,13 @@ td {
 }
 
 .popularDeals {
-  width: 80%; 
-  max-width: 600px; 
-  margin: 0 auto; 
-  padding: 20px; 
+  /* width: 80%;  */
+  max-width: 850px; 
+  margin: auto; 
+  
+  /* padding: 20px; 
   border: 5px solid #ccc; 
-  text-align: center; 
+  text-align: center;  */ 
 }
 
 .popularDeals h2 {
@@ -340,7 +343,7 @@ p {
 
 }
 
-#demo1, #demo2 {
+#demo, #demo2 {
   font-weight: bold;
   color: #4CAF50;
 /* Code for the footer */
@@ -382,4 +385,47 @@ p {
   height: auto; /* Maintain aspect ratio */
   display: block;
   /* Add any styling for the image here */
+}
+
+.deal-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  display: block;
+  text-align: center; 
+  max-width: 200px;
+  box-shadow: 2px 2px 5px #888888; 
+}
+
+/* Style for the link */
+.deal-container a {
+  text-decoration: none;
+  color: #333; 
+}
+
+/* Style for the image */
+.deal-container img {
+  max-width: 100%; 
+  height: auto; 
+}
+a {
+  text-decoration: none; /* Remove underline */
+  color: #0078d4; /* Link color */
+  font-weight: bold; /* Make the text bold */
+  transition: color 0.2s; /* Add a smooth color transition on hover */
+}
+
+a:hover {
+  color: #0056b3; /* Change link color on hover */
+}
+
+/* Remove the default blue border outline that appears on focus (useful for accessibility) */
+a:focus {
+  outline: none;
+}
+
+/* Change link cursor to a pointer on hover to indicate interactivity */
+a:hover {
+  cursor: pointer;
+}
 }

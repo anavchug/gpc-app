@@ -13,7 +13,9 @@
 <!-- Code for the header of the website -->
 <header class="header">
   <div class="header-logo">
+    <a href ="/">
     <img src="/images/logo.png" alt="GalaxyGameSavers Logo">
+  </a>
   </div>
   <div class="header-search">
     <form action="/getListOfGames" method="GET" class="d-flex">
@@ -30,10 +32,13 @@
   </nav>
 </header>
 
-<div class = "popularDeals">
+<div class="popularDeals">
   <h2>Popular Deals Under $15</h2>
-  <ul id="titles-list"></ul>
+  <table>
+    <tbody id="titles-list"></tbody>
+  </table>
 </div>
+
 
   <div class="games-container">
     <div class="game-cards" style="display: none;"></div>

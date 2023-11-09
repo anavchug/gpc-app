@@ -1,14 +1,10 @@
 const Data = require('../../application/data/Data');
 
 async function popularDeals(){
-  const url = 'https://www.cheapshark.com/api/1.0/deals?storeID=1&upperPrice=15';
+  const url = 'https://www.cheapshark.com/api/1.0/deals?&upperPrice=15';
   const popularDeals = await fetch(url);
   const popularDealsJson = await popularDeals.json();
-  const titles = [];
-  popularDealsJson.forEach(game =>{
-    titles.push(game.title);
-  });
-  return titles;
+  return popularDealsJson;
 }
 
 async function getStores(){

@@ -54,7 +54,9 @@
         aboutContent.style.display = 'none';
 
       } else {
-        gameCards.innerHTML = 'No games found with that name';
+        gameCards.innerHTML = 'Sorry, we were unable to find that game. Try searching a different title';
+        gameCards.style.display = 'block';
+        gameCards.style.color = 'white';
       }
     });
     // Add an event listener to the back button

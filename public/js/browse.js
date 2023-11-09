@@ -27,6 +27,7 @@ async function browseDeals(lowerPrice, upperPrice, pageNumber) {
     
     deals.forEach(async deal => {
       const row = document.createElement("tr");
+      row.style.borderBottom = '1px solid #ccc'; 
   
       //Store cell
       const storeCell = document.createElement("td");
@@ -56,8 +57,21 @@ async function browseDeals(lowerPrice, upperPrice, pageNumber) {
       titleContainer.appendChild(gameImage);
       const storeLink = document.createElement('a');
       storeLink.textContent = deal.title;;
+      storeLink.style.textDecoration = 'none';
+      storeLink.style.color = 'white';
+      storeLink.style.transition = 'color 0.2s'; 
+      storeLink.style.cursor = 'pointer'; 
+
       storeLink.href = `https://www.cheapshark.com/redirect?dealID=${deal.dealID}`;
       storeLink.target = '_blank'; 
+
+      storeLink.addEventListener('mouseenter', () => {
+        storeLink.style.color = 'lightgray'; // Change color on hover
+      });
+      
+      storeLink.addEventListener('mouseleave', () => {
+        storeLink.style.color = 'white'; // Restore the original color on mouseout
+      });
   
       titleContainer.appendChild(storeLink);
       titleCell.appendChild(titleContainer);
@@ -85,17 +99,11 @@ async function browseDeals(lowerPrice, upperPrice, pageNumber) {
     pageNumber++;
     
   }
-  console.log(pageNumber);
   // Initial load
   const initialMinValue = Math.round(slider.noUiSlider.get()[0]);
   const initialMaxValue = Math.round(slider.noUiSlider.get()[1]);
-  
-  console.log("Min: " + initialMinValue);
-  console.log("Max: " + initialMaxValue);
 
   loadMoreDeals(initialMinValue, initialMaxValue);
-
-  console.log("Load More deals called");
   
 // Infinite scrolling
 window.addEventListener("scroll", () => {
@@ -105,3 +113,4 @@ window.addEventListener("scroll", () => {
     loadMoreDeals(currentMinValue, currentMaxValue);
   }
 });
+

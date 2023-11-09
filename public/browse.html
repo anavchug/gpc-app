@@ -14,7 +14,9 @@
 <body>
   <header class="header">
     <div class="header-logo">
+      <a href ="/">
       <img src="/images/logo.png" alt="GalaxyGameSavers Logo">
+    </a>
     </div>
     <div class="header-search">
       <form action="/getListOfGames" method="GET" class="d-flex">
@@ -106,7 +108,7 @@
 // Update the span elements when the slider values change
 slider.noUiSlider.on('update', function (values, handle) {
   if (handle === 0) {
-    demo1.innerHTML = Math.round(values[handle]);
+    demo.innerHTML = Math.round(values[handle]);
   } else {
     demo2.innerHTML = Math.round(values[handle]);
   }
@@ -116,7 +118,9 @@ slider.noUiSlider.on('update', function (values, handle) {
   slider.noUiSlider.on('change', function () {
     var minValue = Math.round(slider.noUiSlider.get()[0]);
     var maxValue = Math.round(slider.noUiSlider.get()[1]);
-      //use minValue and maxValue to filter data
+    
+    //use minValue and maxValue to filter data
+    
     });
   </script>
 </body>
