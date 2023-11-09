@@ -90,8 +90,11 @@
             oldGameImage.remove();
         }
         let gameImage = document.createElement("img");
+        gameImage.className = "game-image"; // Add a class to the image
         gameImage.src = pricesData.imageSource;
-        gamePrices.append(gameImage);
+        gamePrices.prepend(gameImage);
+        
+
 
         // Loop through the storePrices, storeNames, and retailPrices arrays
         for (let i = 0; i < pricesData.storePrices.length; i++) {
@@ -131,4 +134,28 @@
         gamePrices.style.display = 'block';
         gameCards.style.display = 'none';
       }
+
+      // JavaScript to adjust footer position when dynamic content is added
+function adjustFooterPosition() {
+  const footer = document.querySelector('.footer');
+  const documentHeight = document.documentElement.scrollHeight;
+  const windowHeight = window.innerHeight;
+
+  if (documentHeight > windowHeight) {
+    // If the document height is greater than the window height, move the footer down
+    footer.style.position = 'static';
+  } else {
+    // Otherwise, keep the footer at the bottom
+    footer.style.position = 'relative';
+    footer.style.bottom = 0;
+  }
+}
+
+// Call the function when the page loads and when dynamic content is added
+window.addEventListener('load', adjustFooterPosition);
+window.addEventListener('resize', adjustFooterPosition);
+// You can also call this function whenever new dynamic content is added to the page
+
+      
+
     }
