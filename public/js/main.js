@@ -7,6 +7,8 @@
     const backButton = document.getElementById('backButton');
     const gameNameInput = document.getElementById('gameName');
     const aboutContent = document.querySelector(".about-content");
+    const currencyDropdown = document.getElementById('currencyDropdown');
+    let pricesData;
     
 
     form.addEventListener('submit', async (e) => {
@@ -54,7 +56,7 @@
         aboutContent.style.display = 'none';
 
       } else {
-        gameCards.innerHTML = 'Sorry, we were unable to find that game. Try searching a different title';
+        gameCards.innerHTML = 'Sorry, we were unable to find that game. Try searching a different title!';
         gameCards.style.display = 'block';
         gameCards.style.color = 'white';
       }
@@ -79,7 +81,7 @@
       gameNameRow.textContent = `${gameName}`;
       // Make a request to the route to get game prices
       const pricesResponse = await fetch(`/getPrices?gameLinkName=${gameName}`);
-      const pricesData = await pricesResponse.json();
+      pricesData = await pricesResponse.json();
       console.log("Prices Data");
       console.log(pricesData);
 
@@ -136,22 +138,52 @@
         gamePrices.style.display = 'block';
         gameCards.style.display = 'none';
       }
+    }
 
-      // JavaScript to adjust footer position when dynamic content is added
-function adjustFooterPosition() {
-  const footer = document.querySelector('.footer');
-  const documentHeight = document.documentElement.scrollHeight;
-  const windowHeight = window.innerHeight;
+// Add an event listener for currency dropdown change
+currencyDropdown.addEventListener('change', async () => {
+  const selectedCurrency = currencyDropdown.value;
 
-  if (documentHeight > windowHeight) {
-    // If the document height is greater than the window height, move the footer down
-    footer.style.position = 'static';
-  } else {
-    // Otherwise, keep the footer at the bottom
-    footer.style.position = 'relative';
-    footer.style.bottom = 0;
+  if (currentGame) {
+    try {
+      // Fetch exchange rates based on the selected currency
+      const currencyResponse = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
+      const currencyData = await currencyResponse.json();
+      const conversionRate = currencyData.rates[selectedCurrency];
+
+      // Update prices
+      const priceCells = document.querySelectorAll('#priceTable td:nth-child(2)');
+      const retailPriceCells = document.querySelectorAll('#priceTable td:nth-child(3)');
+
+      priceCells.forEach((priceCell, index) => {
+        
+        let originalPrice = pricesData.storePrices[index];
+        const convertedPrice = (originalPrice * conversionRate).toFixed(2);
+
+        let originalRetailPrice = pricesData.retailPrices[index];
+        const convertedRetailPrice = (originalRetailPrice * conversionRate).toFixed(2);
+
+        if(conversionRate == '1'){
+          priceCell.textContent = `$${convertedPrice}`;
+          retailPriceCells[index].textContent = `$${convertedRetailPrice}`;
+        }
+        else{
+          priceCell.textContent = `${convertedPrice}`;
+          retailPriceCells[index].textContent = `${convertedRetailPrice}`;
+        }
+      });
+
+      // Update currency header
+      const currencyHeader = document.querySelector('#gamePrices th:nth-child(2)');
+      currencyHeader.textContent = 'Price (' + selectedCurrency + ')';
+
+    } catch (error) {
+      console.error('Error updating prices:', error);
+    }
   }
-}
+});
+
+
 
 // Call the function when the page loads and when dynamic content is added
 window.addEventListener('load', adjustFooterPosition);
@@ -159,5 +191,3 @@ window.addEventListener('resize', adjustFooterPosition);
 // You can also call this function whenever new dynamic content is added to the page
 
       
-
-    }
