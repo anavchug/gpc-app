@@ -10,14 +10,6 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.resolve('./public/appTemplate.html') );
 });
 
-router.get('/about', function(req, res, next) {
-  res.sendFile(path.resolve('./public/about.html') );
-});
-
-router.get('/browse', function(req, res, next) {
-  res.sendFile(path.resolve('./public/browse.html') );
-});
-
 router.get('/stores', async (req, res, next) => {
   try {
     const stores = await gameService.getStores();

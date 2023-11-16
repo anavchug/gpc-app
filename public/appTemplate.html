@@ -5,29 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Price Fetcher</title>
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
+  <script type="module" src="./js/browse.js" defer></script>
   <script src="./js/main.js" defer></script>
 <script src="./js/popularDeals.js"></script>
 </head>
 <body>
 
-<!-- Code for the header of the website -->
+  <!-- Logo -->
 <header class="header">
   <div class="header-logo">
     <a href ="/">
     <img src="/images/logo.png" alt="GalaxyGameSavers Logo">
   </a>
   </div>
+
+  <!-- Search bar code -->
   <div class="header-search">
     <form action="/getListOfGames" method="GET" class="d-flex">
       <input type="text" id="gameName" name="gameName" class="form-control me-2" placeholder="Search Game By Title">
       <button type="submit" class="btn btn-primary">Search</button>
     </form>
   </div>
+
+  <!-- Menu Navigation Bar -->
   <nav class="main-nav">
     <ul class="nav-list">
       <li class="nav-item"><a href="/">Home</a></li>
-      <li class="nav-item"><a href="/browse">Browse</a></li>
-      <li class="nav-item"><a href="/about">About</a></li>
+      <li class="nav-item"><a href="#" id="browseLink">Browse</a></li>
+      <li class="nav-item"><a href="#" id="aboutLink">About</a></li>
       <li class="nav-item currency-dropdown">
         <select id="currencyDropdown">
           <option value="USD">USD</option>
@@ -43,17 +50,42 @@
   </nav>
 </header>
 
-<div class="popularDeals">
-  <h2>Popular Deals Under $15</h2>
-  <table>
-    <tbody id="titles-list"></tbody>
-  </table>
-</div>
-
-
-  <div class="games-container">
-    <div class="game-cards" style="display: none;"></div>
+  <!-- Main Page- Popular Deals -->
+  <div class="popularDeals">
+    <h2>Popular Deals Under $15</h2>
+    <table>
+      <tbody id="titles-list"></tbody>
+    </table>
   </div>
+
+  <!-- Browse Page -->
+  <div class="slidecontainer" style="display: none;">
+    <div id="slider"></div>
+    <p><b>Price Range:</b> <span id="demo"></span> - <span id="demo2"></span></p>
+  </div>
+
+  <div id="dealList" style="display: none;">
+    <table>
+      <thead>
+        <tr>
+          <th>Store</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Deal Rating</th>
+          <th>Release</th>
+        </tr>
+      </thead>
+      <tbody id="dealTableBody"></tbody>
+    </table>
+  </div>
+  <div id="loading" style="display: none;">Loading...</div>
+
+<!-- Game Cards when a game is searched -->
+  <div class="games-container" style="display: none;" >
+    <div class="game-cards" style="display: none;" ></div>
+  </div>
+
+<!-- Game Price Table when a card is clicked -->
   <div id="gamePrices" style="display: none;">
     <h2 id="gameNameRow">Game Name</h2>
     <table>
@@ -69,7 +101,32 @@
     <button id="backButton">Back to Game List</button>
   </div>
 
-  <!-- Code for the footer of the website -->
+  <!-- About Page -->
+  <div class="about-content" style="display: none;">
+    <img src="/images/galaxy.gif" alt="Space Header Image" class="space-header">
+    <h1>About Us</h1>
+    <p>Welcome to GalaxyGameSavers, your source for the latest and greatest deals on video games! Whether you're a casual gamer or a hardcore enthusiast, we've got you covered.</p>
+    <h2>Mission</h2>
+    <p>Our goal with our project is to make finding deals for games that much easier. With so many game sellers, it can be hard to keep track of when discounts on games come, and by the time you realize it, it might be too late! Our mission is to provide you with a one-stop shop to check out game deals from various sellers, such as Steam, Humble Bundle, Gog, and many more.</p>
+  
+    <h2>Our Team</h2>
+    <p>Brenden Maize</p>
+    <p>Brenden Maize is primarily responsible for the front end of the website. This includes but is not limited to reformatting the HTML, implementing new features with CSS, and researching ways to make the design intuitive.</p>
+  
+    <p>Anav Chug</p>
+    <p>Anav Chug is the go-to person when it comes to the backend. They are responsible for creating the backbone of our website, including creating API calls, routing the webpages to each other, and cleaning up the logic of the code.</p>
+  
+    <p>Jason Priddy</p>
+    <p>Jason Priddy is the bridge in between the frontend and backend. They are responsible for creating the price conversion feature, styling of the Browse feature, and revising the HTML structure.</p>
+  
+    <h2>Our Commitment</h2>
+    <p>Our team is dedicated to providing you with up-to-date information on game prices, promotions, and where to find the best bargains. We're passionate about gaming and want to help you save money while enjoying your favorite titles.</p>
+  
+    <h2>Get Started</h2>
+    <p>Feel free to explore our website, search for your favorite games, and discover the best deals available. Happy gaming!</p>
+  </div>
+
+ <!-- Footer -->
 <footer class="footer">
   <div class="footer-content">
     <p>&copy; GalaxyGameSavers</p>

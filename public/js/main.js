@@ -1,16 +1,47 @@
    //JavaScript to handle the response and display the game names and thumbnails
    document.addEventListener("DOMContentLoaded", async function() {
     const form = document.querySelector('form');
+    const gamesContainer = document.querySelector(".games-container");
     const gameCards = document.querySelector('.game-cards');
     const gamePrices = document.getElementById('gamePrices');
     const priceTable = document.getElementById('priceTable');
     const backButton = document.getElementById('backButton');
     const gameNameInput = document.getElementById('gameName');
     const aboutContent = document.querySelector(".about-content");
+    const dealList = document.getElementById("dealList");
+    const loading = document.getElementById("loading");
+    const sliderContainer = document.querySelector(".slidecontainer");
+    var browseLink = document.getElementById('browseLink');
+    var aboutLink = document.getElementById("aboutLink");
+
     const currencyDropdown = document.getElementById('currencyDropdown');
     const popularDeals = document.querySelector(".popularDeals");
     let pricesData;
     
+
+    browseLink.addEventListener('click', function(e) {
+      e.preventDefault(); 
+      popularDeals.style.display = 'none';
+      gamesContainer.style.display = 'none';
+      gameCards.style.display = 'none'; 
+      loading.style.display = 'none';
+      loading.style.color = 'none';
+      dealList.style.display = 'block';
+      loading.style.display = 'block';
+      loading.style.color = "white";
+      sliderContainer.style.display = 'block';
+  });
+  aboutLink.addEventListener('click', function(e) {
+    e.preventDefault(); 
+    popularDeals.style.display = 'none';
+    gamesContainer.style.display = 'none';
+    loading.style.display = 'none';
+    gameCards.style.display = 'none';  
+    dealList.style.display = 'none';
+    sliderContainer.style.display = 'none';
+    gamePrices.style.display = 'none';
+    aboutContent.style.display = "block";
+});
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -51,10 +82,15 @@
           gameCards.appendChild(gameCard);
         });
 
-        // Display the game cards and hide others
+        // Display the game cards and hide other things on the page
+        gamesContainer.style.display = 'block';
         gameCards.style.display = 'block';
+        loading.style.display = 'none';
+        loading.style.color = 'none';
         gamePrices.style.display = 'none';
+        dealList.style.display = 'none';
         aboutContent.style.display = 'none';
+        sliderContainer.style.display = 'none';
 
       } else {
         gameCards.innerHTML = 'Sorry, we were unable to find that game. Try searching a different title!';
@@ -72,6 +108,9 @@
     function displayGameList() {
         gamePrices.style.display = 'none';
         gameCards.style.display = 'block';
+        aboutContent.style.display = 'none';
+        loading.style.display = 'none';
+        sliderContainer.style.display = 'none';
       }
   });
     
