@@ -1,5 +1,39 @@
 const dealTableBody = document.getElementById("dealTableBody");
 const loading = document.getElementById("loading");
+var slider = document.getElementById('slider');
+var demo1 = document.getElementById('demo');
+var demo2 = document.getElementById('demo2');
+
+noUiSlider.create(slider, {
+  start: [50, 150], // Initial values of the two thumbs
+  connect: true, // Connect the two thumbs with a colored bar
+  range: {
+    'min': 1,
+    'max': 200
+  }
+});
+
+// Update the span elements when the slider values change
+slider.noUiSlider.on('update', function (values, handle) {
+if (handle === 0) {
+demo1.innerHTML = Math.round(values[handle]);
+} else {
+demo2.innerHTML = Math.round(values[handle]);
+}
+});
+
+// Function to update the price range
+slider.noUiSlider.on('change', function () {
+// Clear existing table
+dealTableBody.innerHTML = '';
+
+var minValue = Math.round(slider.noUiSlider.get()[0]);
+var maxValue = Math.round(slider.noUiSlider.get()[1]);
+
+// Load deals with the new price range
+pageNumber = 1; // Reset the page number
+loadMoreDeals(minValue, maxValue);
+});
 
 async function browseDeals(lowerPrice, upperPrice, pageNumber) {
     const url = `https://www.cheapshark.com/api/1.0/deals?lowerPrice=${lowerPrice}&upperPrice=${upperPrice}&pageNumber=${pageNumber}`;
@@ -66,11 +100,11 @@ async function browseDeals(lowerPrice, upperPrice, pageNumber) {
       storeLink.target = '_blank'; 
 
       storeLink.addEventListener('mouseenter', () => {
-        storeLink.style.color = 'lightgray'; // Change color on hover
+        storeLink.style.color = 'lightgray'; 
       });
       
       storeLink.addEventListener('mouseleave', () => {
-        storeLink.style.color = 'white'; // Restore the original color on mouseout
+        storeLink.style.color = 'white'; 
       });
   
       titleContainer.appendChild(storeLink);

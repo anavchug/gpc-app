@@ -8,6 +8,7 @@
     const gameNameInput = document.getElementById('gameName');
     const aboutContent = document.querySelector(".about-content");
     const currencyDropdown = document.getElementById('currencyDropdown');
+    const popularDeals = document.querySelector(".popularDeals");
     let pricesData;
     
 
@@ -139,12 +140,11 @@
         gameCards.style.display = 'none';
       }
     }
-
+   //const priceCellsForPopularDeals = document.querySelectorAll('#titles-list td:nth-child(2)');
 // Add an event listener for currency dropdown change
 currencyDropdown.addEventListener('change', async () => {
   const selectedCurrency = currencyDropdown.value;
 
-  if (currentGame) {
     try {
       // Fetch exchange rates based on the selected currency
       const currencyResponse = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
@@ -154,6 +154,7 @@ currencyDropdown.addEventListener('change', async () => {
       // Update prices
       const priceCells = document.querySelectorAll('#priceTable td:nth-child(2)');
       const retailPriceCells = document.querySelectorAll('#priceTable td:nth-child(3)');
+      
 
       priceCells.forEach((priceCell, index) => {
         
@@ -180,14 +181,9 @@ currencyDropdown.addEventListener('change', async () => {
     } catch (error) {
       console.error('Error updating prices:', error);
     }
-  }
 });
 
-
-
-// Call the function when the page loads and when dynamic content is added
 window.addEventListener('load', adjustFooterPosition);
 window.addEventListener('resize', adjustFooterPosition);
-// You can also call this function whenever new dynamic content is added to the page
 
       

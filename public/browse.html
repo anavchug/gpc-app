@@ -29,6 +29,17 @@
         <li class="nav-item"><a href="/">Home</a></li>
         <li class="nav-item"><a href="/browse">Browse</a></li>
         <li class="nav-item"><a href="/about">About</a></li>
+        <li class="nav-item currency-dropdown">
+          <select id="currencyDropdown">
+            <option value="USD">USD</option>
+            <option value="AED">AED</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="INR">INR</option>
+            <option value="JPY">JPY</option>
+            <option value="KRW">KRW</option>
+          </select>
+        </li>
       </ul>
     </nav>
   </header>
@@ -90,38 +101,5 @@
   </div>
 
   <div id="search-overlay"></div>
-
-  <script>
-    var slider = document.getElementById('slider');
-    var demo1 = document.getElementById('demo');
-    var demo2 = document.getElementById('demo2');
-    
-    noUiSlider.create(slider, {
-      start: [50, 150], // Initial values of the two thumbs
-      connect: true, // Connect the two thumbs with a colored bar
-      range: {
-        'min': 1,
-        'max': 200
-      }
-    });
-  
-// Update the span elements when the slider values change
-slider.noUiSlider.on('update', function (values, handle) {
-  if (handle === 0) {
-    demo.innerHTML = Math.round(values[handle]);
-  } else {
-    demo2.innerHTML = Math.round(values[handle]);
-  }
-});
-
-// Function to update the price range
-  slider.noUiSlider.on('change', function () {
-    var minValue = Math.round(slider.noUiSlider.get()[0]);
-    var maxValue = Math.round(slider.noUiSlider.get()[1]);
-    
-    //use minValue and maxValue to filter data
-    
-    });
-  </script>
 </body>
 </html>
