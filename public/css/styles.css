@@ -80,6 +80,7 @@ body {
   margin-right: 5px;
 }
 
+
 .nav-item a {
   display: block;
   padding: 5px 10px; /* Change padding to match the search button */
@@ -92,6 +93,34 @@ body {
 .nav-item a:hover {
   background-color: #000000;
 }
+.currency-dropdown {
+  margin-right: 5px;
+  position: relative;
+}
+#currencyDropdown {
+  padding: 5px 10px; /* Match the padding to other nav items */
+  background-color: #000000;
+  color: #fff;
+  border: 1px solid #000000;
+  cursor: pointer; /* Change cursor to pointer for better user experience */
+  font-size: medium;
+}
+#currencyDropdown:hover {
+  background-color: #000000;
+}
+#currencyDropdown option {
+  background-color: #000000;
+  color: #fff;
+}
+
+.currency-dropdown::after {
+  position: absolute;
+  top: 50%;
+  right: 5px; /* Adjust as needed */
+  transform: translateY(-50%);
+  color: #fff;
+}
+
 
 
 
@@ -234,7 +263,7 @@ td {
 /* Style for the game image */
 .game-image {
   width: 370px; /* Set the width */
-  height: 200px; /* Set the height */
+  height: 150px; /* Set the height */
   display: block; /* Make it a block element */
   margin: 0 auto; /* Center it horizontally */
   /* Add any other positioning or styling you need */

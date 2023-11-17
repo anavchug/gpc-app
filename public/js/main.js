@@ -1,7 +1,6 @@
    //JavaScript to handle the response and display the game names and thumbnails
    document.addEventListener("DOMContentLoaded", async function() {
     const form = document.querySelector('form');
-    const gamesContainer = document.querySelector(".games-container");
     const gameCards = document.querySelector('.game-cards');
     const gamePrices = document.getElementById('gamePrices');
     const priceTable = document.getElementById('priceTable');
@@ -22,7 +21,6 @@
     browseLink.addEventListener('click', function(e) {
       e.preventDefault(); 
       popularDeals.style.display = 'none';
-      gamesContainer.style.display = 'none';
       gameCards.style.display = 'none'; 
       loading.style.display = 'none';
       loading.style.color = 'none';
@@ -34,7 +32,6 @@
   aboutLink.addEventListener('click', function(e) {
     e.preventDefault(); 
     popularDeals.style.display = 'none';
-    gamesContainer.style.display = 'none';
     loading.style.display = 'none';
     gameCards.style.display = 'none';  
     dealList.style.display = 'none';
@@ -83,7 +80,6 @@
         });
 
         // Display the game cards and hide other things on the page
-        gamesContainer.style.display = 'block';
         gameCards.style.display = 'block';
         loading.style.display = 'none';
         loading.style.color = 'none';
@@ -154,9 +150,12 @@
           const retailPriceCell = document.createElement('td');
           const storeLink = document.createElement('a');
 
+          row.style.borderBottom = '1px solid #ccc';
+
           storeLink.textContent = storeName;
           storeLink.href = `https://www.cheapshark.com/redirect?dealID=${dealId}`;
           storeLink.target = '_blank'; // Open link in a new tab
+          storeLink.style.color = "white";
 
           storeCell.appendChild(storeLink);
           priceCell.textContent = `$${storePrice}`;
