@@ -121,6 +121,9 @@ body {
   color: #fff;
 }
 
+button.btn.btn-primary {
+  height: 30px;
+}
 
 
 
