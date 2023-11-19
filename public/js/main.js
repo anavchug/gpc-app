@@ -7,9 +7,7 @@
     const backButton = document.getElementById('backButton');
     const gameNameInput = document.getElementById('gameName');
     const aboutContent = document.querySelector(".about-content");
-    const dealList = document.getElementById("dealList");
-    const loading = document.getElementById("loading");
-    const sliderContainer = document.querySelector(".slidecontainer");
+    const browseContent = document.querySelector(".browsePage");
     var browseLink = document.getElementById('browseLink');
     var aboutLink = document.getElementById("aboutLink");
 
@@ -22,20 +20,14 @@
       e.preventDefault(); 
       popularDeals.style.display = 'none';
       gameCards.style.display = 'none'; 
-      loading.style.display = 'none';
-      loading.style.color = 'none';
-      dealList.style.display = 'block';
-      loading.style.display = 'block';
-      loading.style.color = "white";
-      sliderContainer.style.display = 'block';
+      browseContent.style.display = 'block';
+      aboutContent.style.display = 'none';
   });
   aboutLink.addEventListener('click', function(e) {
     e.preventDefault(); 
     popularDeals.style.display = 'none';
-    loading.style.display = 'none';
     gameCards.style.display = 'none';  
-    dealList.style.display = 'none';
-    sliderContainer.style.display = 'none';
+    browseContent.style.display = 'none';
     gamePrices.style.display = 'none';
     aboutContent.style.display = "block";
 });
@@ -67,7 +59,7 @@
           gameLink.textContent = game.external;
           gameLink.href = `javascript:void(0);`; // Make it a non-navigating link
           gameLink.addEventListener('click', async () => {
-            // When a game link is clicked, store the current game
+          // When a game link is clicked, store the current game
             currentGame = game;
             displayGamePrices(game.external); // Call a function to display game prices
           });
@@ -81,12 +73,9 @@
 
         // Display the game cards and hide other things on the page
         gameCards.style.display = 'block';
-        loading.style.display = 'none';
-        loading.style.color = 'none';
         gamePrices.style.display = 'none';
-        dealList.style.display = 'none';
+        browseContent.style.display = 'none';
         aboutContent.style.display = 'none';
-        sliderContainer.style.display = 'none';
 
       } else {
         gameCards.innerHTML = 'Sorry, we were unable to find that game. Try searching a different title!';
@@ -105,8 +94,6 @@
         gamePrices.style.display = 'none';
         gameCards.style.display = 'block';
         aboutContent.style.display = 'none';
-        loading.style.display = 'none';
-        sliderContainer.style.display = 'none';
       }
   });
     
