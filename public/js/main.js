@@ -10,14 +10,16 @@
     const browseContent = document.querySelector(".browsePage");
     var browseLink = document.getElementById('browseLink');
     var aboutLink = document.getElementById("aboutLink");
-
     const currencyDropdown = document.getElementById('currencyDropdown');
     const popularDeals = document.querySelector(".popularDeals");
+
+    
     let pricesData;
     
-
     browseLink.addEventListener('click', function(e) {
       e.preventDefault(); 
+
+      currencyDropdown.selectedIndex = 0;
       popularDeals.style.display = 'none';
       gameCards.style.display = 'none'; 
       browseContent.style.display = 'block';
@@ -25,6 +27,7 @@
   });
   aboutLink.addEventListener('click', function(e) {
     e.preventDefault(); 
+    currencyDropdown.selectedIndex = 0;
     popularDeals.style.display = 'none';
     gameCards.style.display = 'none';  
     browseContent.style.display = 'none';
@@ -38,7 +41,9 @@
       const titlesList = document.getElementById('titles-list');
       const titlesDiv = document.querySelector(".popularDeals");
       titlesList.style.display = 'none';
-      titlesDiv.style.display = 'none'
+      titlesDiv.style.display = 'none';
+      currencyDropdown.selectedIndex = 0;
+      
 
       // Make a request to the route to get the list of games
       const response = await fetch(`/getListOfGames?gameName=${gameName}`);
@@ -61,6 +66,9 @@
           gameLink.addEventListener('click', async () => {
           // When a game link is clicked, store the current game
             currentGame = game;
+            // const currencyHeadergameSearch = document.querySelector('#priceTable th:nth-child(2)');
+            // currencyHeadergameSearch.textContent = 'Price';
+
             displayGamePrices(game.external); // Call a function to display game prices
           });
 
@@ -102,16 +110,20 @@
       const gameNameRow = document.getElementById("gameNameRow");
       const gameCards = document.querySelector('.game-cards');
       gameNameRow.textContent = `${gameName}`;
+
       // Make a request to the route to get game prices
       const pricesResponse = await fetch(`/getPrices?gameLinkName=${gameName}`);
       pricesData = await pricesResponse.json();
-      console.log("Prices Data");
-      console.log(pricesData);
+
+      const currencyHeaderPrices = document.querySelector('#gamePrices th:nth-child(2)');
+      const currencyHeaderRetailPrices = document.querySelector('#gamePrices th:nth-child(3)');
+      currencyHeaderPrices.textContent = 'Price';
+      currencyHeaderRetailPrices.textContent = 'Retail Price';
 
       if (pricesData.storePrices) {
         // Clear the previous list of prices
         priceTable.innerHTML = '';
-        
+
         const oldGameImage = gamePrices.querySelector("img");
         if (oldGameImage) {
             oldGameImage.remove();
@@ -121,8 +133,6 @@
         gameImage.src = pricesData.imageSource;
         gamePrices.prepend(gameImage);
         
-
-
         // Loop through the storePrices, storeNames, and retailPrices arrays
         for (let i = 0; i < pricesData.storePrices.length; i++) {
           const storeName = pricesData.storeNames[i];
@@ -165,7 +175,7 @@
         gameCards.style.display = 'none';
       }
     }
-   //const priceCellsForPopularDeals = document.querySelectorAll('#titles-list td:nth-child(2)');
+
 // Add an event listener for currency dropdown change
 currencyDropdown.addEventListener('change', async () => {
   const selectedCurrency = currencyDropdown.value;
@@ -176,11 +186,37 @@ currencyDropdown.addEventListener('change', async () => {
       const currencyData = await currencyResponse.json();
       const conversionRate = currencyData.rates[selectedCurrency];
 
-      // Update prices
+      // Getting price columns in the different tables
       const priceCells = document.querySelectorAll('#priceTable td:nth-child(2)');
       const retailPriceCells = document.querySelectorAll('#priceTable td:nth-child(3)');
-      
+      const priceCellsForPopularDeals = document.querySelectorAll('#titles-list td:nth-child(3)');
 
+      //getting the prices for popular deals
+      var popularDealData = [];
+      const response = await fetch('/popularDeals');
+      const data = await response.json();
+      data.forEach(deal =>{
+        popularDealData.push(deal.salePrice);
+      });
+
+      const currentPath = window.location.pathname;
+      if(currentPath == '/'){
+        const currencyHeader = document.querySelector('#titles-list th:nth-child(3)');
+
+        for(i = 0; i< priceCellsForPopularDeals.length; i++){
+          let originalPopularDealPrice = popularDealData[i];
+          const convertedPopularDealPrice = (originalPopularDealPrice * conversionRate).toFixed(2);
+          
+          if(conversionRate == '1'){
+            priceCellsForPopularDeals[i].textContent = `$${convertedPopularDealPrice}`;
+            currencyHeader.textContent = 'Price';
+          }
+          else{
+            priceCellsForPopularDeals[i].textContent = `${convertedPopularDealPrice}`;
+            currencyHeader.textContent = 'Price (' + selectedCurrency + ')';
+          }
+      }
+    }
       priceCells.forEach((priceCell, index) => {
         
         let originalPrice = pricesData.storePrices[index];
@@ -201,13 +237,21 @@ currencyDropdown.addEventListener('change', async () => {
 
       // Update currency header
       const currencyHeader = document.querySelector('#gamePrices th:nth-child(2)');
-      currencyHeader.textContent = 'Price (' + selectedCurrency + ')';
+      const currencyHeaderRetailPrices = document.querySelector('#gamePrices th:nth-child(3)');
 
+      if(conversionRate == '1'){
+        currencyHeader.textContent = 'Price';
+        currencyHeaderRetailPrices.textContent = 'Retail Price';
+       
+      }
+      else{
+        currencyHeader.textContent = 'Price (' + selectedCurrency + ')';
+        currencyHeaderRetailPrices.textContent = 'Retail Price (' + selectedCurrency + ')';
+      }
     } catch (error) {
       console.error('Error updating prices:', error);
     }
 });
-
 window.addEventListener('load', adjustFooterPosition);
 window.addEventListener('resize', adjustFooterPosition);
 

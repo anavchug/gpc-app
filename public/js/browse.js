@@ -1,71 +1,94 @@
-const dealTableBody = document.getElementById("dealTableBody");
-const loading = document.getElementById("loading");
-var slider = document.getElementById('slider');
-var demo1 = document.getElementById('demo');
-var demo2 = document.getElementById('demo2');
+class DealTableManager {
+  constructor() {
+    this.dealTableBody = document.getElementById("dealTableBody");
+    this.loading = document.getElementById("loading");
+    this.slider = document.getElementById('slider');
+    this.demo1 = document.getElementById('demo');
+    this.demo2 = document.getElementById('demo2');
+    this.latestDealsData = null;
+    this.pageNumber = 1;
 
-noUiSlider.create(slider, {
-  start: [50, 150], // Initial values of the two thumbs
-  connect: true, // Connect the two thumbs with a colored bar
-  range: {
-    'min': 1,
-    'max': 200
+    noUiSlider.create(this.slider, {
+      start: [50, 150],
+      connect: true,
+      range: {
+        'min': 1,
+        'max': 200
+      }
+    });
+
+    this.slider.noUiSlider.on('update', (values, handle) => {
+      if (handle === 0) {
+        this.demo1.innerHTML = Math.round(values[handle]);
+      } else {
+        this.demo2.innerHTML = Math.round(values[handle]);
+      }
+    });
+
+    this.slider.noUiSlider.on('change', () => {
+      this.dealTableBody.innerHTML = '';
+      const minValue = Math.round(this.slider.noUiSlider.get()[0]);
+      const maxValue = Math.round(this.slider.noUiSlider.get()[1]);
+      this.pageNumber = 1;
+      this.loadMoreDeals(minValue, maxValue);
+    });
+
+    this.initialize();
   }
-});
 
-// Update the span elements when the slider values change
-slider.noUiSlider.on('update', function (values, handle) {
-if (handle === 0) {
-demo1.innerHTML = Math.round(values[handle]);
-} else {
-demo2.innerHTML = Math.round(values[handle]);
-}
-});
+  async initialize() {
+    await this.loadStoreData();
+    const initialMinValue = Math.round(this.slider.noUiSlider.get()[0]);
+    const initialMaxValue = Math.round(this.slider.noUiSlider.get()[1]);
+    this.loadMoreDeals(initialMinValue, initialMaxValue);
 
-// Function to update the price range
-slider.noUiSlider.on('change', function () {
-// Clear existing table
-dealTableBody.innerHTML = '';
+    window.addEventListener("scroll", () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        const currentMinValue = Math.round(this.slider.noUiSlider.get()[0]);
+        const currentMaxValue = Math.round(this.slider.noUiSlider.get()[1]);
+        this.loadMoreDeals(currentMinValue, currentMaxValue);
+      }
+    });
+  }
 
-var minValue = Math.round(slider.noUiSlider.get()[0]);
-var maxValue = Math.round(slider.noUiSlider.get()[1]);
+  async loadStoreData() {
+    const response = await fetch(`/stores`);
+    const storeDataJson = await response.json();
+    this.storeData = storeDataJson;
+    return this.storeData;
+  }
 
-// Load deals with the new price range
-pageNumber = 1; // Reset the page number
-loadMoreDeals(minValue, maxValue);
-});
-
-async function browseDeals(lowerPrice, upperPrice, pageNumber) {
+  async browseDeals(lowerPrice, upperPrice, pageNumber) {
     const url = `https://www.cheapshark.com/api/1.0/deals?lowerPrice=${lowerPrice}&upperPrice=${upperPrice}&pageNumber=${pageNumber}`;
-    const randomTitles = await fetch(url);
-    const randomTitlesJson = await randomTitles.json();
-    return randomTitlesJson;
+    const response = await fetch(url);
+    const dealsData = await response.json();
+    this.latestDealsData = dealsData;
+    return dealsData;
   }
   
-  let pageNumber = 1;
+  // let pageNumber = 1;
 
   //getting the store data
-  const storeData = await fetch(`/stores`);
-  const storeDataJson = await storeData.json();
+  // const storeData = await fetch(`/stores`);
+  // const storeDataJson = await storeData.json();
 
-  async function loadMoreDeals(lowerPrice, upperPrice) {
-    loading.style.display = "block";
-    const deals = await browseDeals(lowerPrice, upperPrice, pageNumber);
-    loading.style.display = "none";
-  
+  async loadMoreDeals(lowerPrice, upperPrice) {
+    this.loading.style.display = "block";
+    const deals = await this.browseDeals(lowerPrice, upperPrice, this.pageNumber);
+    this.loading.style.display = "none";
+
     if (deals.length === 0) {
-      // No more deals to load
-      loading.textContent = "No more deals available.";
+      this.loading.textContent = "No more deals available.";
       return;
     }
-    
-    deals.forEach(async deal => {
+
+    deals.forEach(deal => {
       const row = document.createElement("tr");
-      row.style.borderBottom = '1px solid #ccc'; 
+      row.style.borderBottom = '1px solid #ccc';
   
       //Store cell
       const storeCell = document.createElement("td");
-      const store = storeDataJson.find((store) => store.storeID === deal.storeID);
+      const store = this.storeData.find((store) => store.storeID === deal.storeID);
       // Create an image element
       const storeImage = document.createElement("img");
       storeImage.src = "https://www.cheapshark.com/"+store.images.icon; 
@@ -127,24 +150,15 @@ async function browseDeals(lowerPrice, upperPrice, pageNumber) {
       releaseCell.textContent = releaseDate.toLocaleDateString();
       row.appendChild(releaseCell);
   
-      dealTableBody.appendChild(row);
+      this.dealTableBody.appendChild(row);
     });
   
-    pageNumber++;
+    this.pageNumber++;
     
   }
-  // Initial load
-  const initialMinValue = Math.round(slider.noUiSlider.get()[0]);
-  const initialMaxValue = Math.round(slider.noUiSlider.get()[1]);
-
-  loadMoreDeals(initialMinValue, initialMaxValue);
-  
-// Infinite scrolling
-window.addEventListener("scroll", () => {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    const currentMinValue = Math.round(slider.noUiSlider.get()[0]);
-    const currentMaxValue = Math.round(slider.noUiSlider.get()[1]);
-    loadMoreDeals(currentMinValue, currentMaxValue);
+  getLatestDealsData() {
+    return this.latestDealsData;
   }
-});
+}
+const dealTableManager = new DealTableManager();
 

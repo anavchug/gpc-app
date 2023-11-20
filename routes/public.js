@@ -23,7 +23,6 @@ router.get('/stores', async (req, res, next) => {
 router.get('/popularDeals', async (req, res, next) => {
   try {
     const deals = await gameService.popularDeals();
-    // res.json({ titles });
     res.json(deals);
   } catch (error) {
     console.error(error);
