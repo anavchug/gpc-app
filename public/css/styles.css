@@ -280,8 +280,8 @@ td {
 
 /* Style for the game image */
 .game-image {
-  width: 370px; /* Set the width */
-  height: 150px; /* Set the height */
+  width: 270px; /* Set the width */
+  height: 120px; /* Set the height */
   display: block; /* Make it a block element */
   margin: 10px auto; /* Center it horizontally */
   /* Add any other positioning or styling you need */
