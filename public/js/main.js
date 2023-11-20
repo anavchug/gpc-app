@@ -21,6 +21,8 @@
       e.preventDefault(); 
 
       currencyDropdown.selectedIndex = 0;
+      searchedGame.style.display = 'none';
+      gamePrices.style.display = 'none';
       popularDeals.style.display = 'none';
       gameCards.style.display = 'none'; 
       browseContent.style.display = 'block';
@@ -29,6 +31,7 @@
   aboutLink.addEventListener('click', function(e) {
     e.preventDefault(); 
     currencyDropdown.selectedIndex = 0;
+    searchedGame.style.display = 'none';
     popularDeals.style.display = 'none';
     gameCards.style.display = 'none';  
     browseContent.style.display = 'none';
@@ -51,6 +54,7 @@
       const { searchResults, thumbnails } = await response.json();
 
       searchedGame.textContent = 'Search Results For "' + gameName + '"';
+      searchedGame.style.display = 'block';
 
       // Clear the previously displayed game cards
       gameCards.innerHTML = '';
@@ -166,6 +170,7 @@
         }
         
         // Display the prices and hide the game cards
+        searchedGame.style.display = 'none';
         gamePrices.style.display = 'block';
         gameCards.style.display = 'none';
         aboutContent.style.display = 'none';

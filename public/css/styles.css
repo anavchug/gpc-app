@@ -92,7 +92,6 @@ body {
 
 .nav-item a:hover {
   background-color: #000000;
-  text-decoration: underline;
   color: lightgray;
 }
 .currency-dropdown {
@@ -109,7 +108,6 @@ body {
 }
 #currencyDropdown:hover {
   background-color: #000000;
-  text-decoration: underline;
   color: lightgray;
 }
 #currencyDropdown option {
@@ -285,7 +283,7 @@ td {
   width: 370px; /* Set the width */
   height: 150px; /* Set the height */
   display: block; /* Make it a block element */
-  margin: 0 auto; /* Center it horizontally */
+  margin: 10px auto; /* Center it horizontally */
   /* Add any other positioning or styling you need */
 }
 
