@@ -222,6 +222,9 @@ currencyDropdown.addEventListener('change', async () => {
           }
       }
     }
+    // if(currentPath == '/browse'){
+
+    // }
       priceCells.forEach((priceCell, index) => {
         
         let originalPrice = pricesData.storePrices[index];

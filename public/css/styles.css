@@ -20,13 +20,6 @@ body {
 }
 
 
-
-
-/* Rest of your styles */
-
-/* Add other styles for the rest of your page content */
-
-
 /* Logo styles */
 .header-logo {
   margin-right: 20px; /* Adjust the margin for positioning */
@@ -59,8 +52,6 @@ body {
 .header-search button {
   margin: 0; /* Remove margin to make input and button closer */
 }
-
-
 
 
 /* Navigation links styles */
@@ -284,7 +275,6 @@ td {
   height: 120px; /* Set the height */
   display: block; /* Make it a block element */
   margin: 10px auto; /* Center it horizontally */
-  /* Add any other positioning or styling you need */
 }
 
 

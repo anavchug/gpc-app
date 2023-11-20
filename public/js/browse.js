@@ -109,6 +109,7 @@ class DealTableManager {
       const storeLink = document.createElement('a');
       storeLink.textContent = deal.title;;
       storeLink.style.textDecoration = 'none';
+      storeLink.style.marginLeft = "10px";
       storeLink.style.color = 'white';
       storeLink.style.transition = 'color 0.2s'; 
       storeLink.style.cursor = 'pointer'; 
@@ -155,4 +156,5 @@ class DealTableManager {
   }
 }
 const dealTableManager = new DealTableManager();
+
 
