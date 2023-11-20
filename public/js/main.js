@@ -12,6 +12,7 @@
     var aboutLink = document.getElementById("aboutLink");
     const currencyDropdown = document.getElementById('currencyDropdown');
     const popularDeals = document.querySelector(".popularDeals");
+    const searchedGame = document.getElementById("searchedGame");
 
     
     let pricesData;
@@ -43,40 +44,40 @@
       titlesList.style.display = 'none';
       titlesDiv.style.display = 'none';
       currencyDropdown.selectedIndex = 0;
-      
+  
 
       // Make a request to the route to get the list of games
       const response = await fetch(`/getListOfGames?gameName=${gameName}`);
       const { searchResults, thumbnails } = await response.json();
 
+      searchedGame.textContent = "Search Results For " + gameName;
+      // searchedGame.style.color = "white";
+
       // Clear the previously displayed game cards
       gameCards.innerHTML = '';
-
+      
       if (searchResults.length > 0) {
         // Loop through the games and create game cards with links and thumbnails
         searchResults.forEach((game, index) => {
           const gameCard = document.createElement('div');
           gameCard.className = 'game-card';
-
           const gameLink = document.createElement('a');
           const gameThumbnail = document.createElement('img'); // Create an image element for the thumbnail
 
           gameLink.textContent = game.external;
           gameLink.href = `javascript:void(0);`; // Make it a non-navigating link
+
           gameLink.addEventListener('click', async () => {
           // When a game link is clicked, store the current game
             currentGame = game;
-            // const currencyHeadergameSearch = document.querySelector('#priceTable th:nth-child(2)');
-            // currencyHeadergameSearch.textContent = 'Price';
-
             displayGamePrices(game.external); // Call a function to display game prices
           });
 
           gameThumbnail.src = thumbnails[index]; // Set the thumbnail source
-
           gameCard.appendChild(gameThumbnail);
           gameCard.appendChild(gameLink);
           gameCards.appendChild(gameCard);
+
         });
 
         // Display the game cards and hide other things on the page
@@ -152,7 +153,7 @@
           storeLink.textContent = storeName;
           storeLink.href = `https://www.cheapshark.com/redirect?dealID=${dealId}`;
           storeLink.target = '_blank'; // Open link in a new tab
-          storeLink.style.color = "white";
+          storeLink.classList.add('store-link');
 
           storeCell.appendChild(storeLink);
           priceCell.textContent = `$${storePrice}`;

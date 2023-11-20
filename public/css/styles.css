@@ -92,6 +92,8 @@ body {
 
 .nav-item a:hover {
   background-color: #000000;
+  text-decoration: underline;
+  color: lightgray;
 }
 .currency-dropdown {
   margin-right: 5px;
@@ -107,6 +109,8 @@ body {
 }
 #currencyDropdown:hover {
   background-color: #000000;
+  text-decoration: underline;
+  color: lightgray;
 }
 #currencyDropdown option {
   background-color: #000000;
@@ -180,6 +184,11 @@ form {
     /* Increase the min-height value to make the cards taller */
     min-height: 200px; /* Adjust the value as needed */
   }
+
+  #searchedGame{
+    color: white;
+    margin-left: 220px;
+  }
   
   .game-card {
     border: 1px solid #000000;
@@ -211,6 +220,7 @@ form {
   
   .game-card a:hover {
     text-decoration: underline;
+    color: lightgray;
   }
   
   .game-card a:focus {
@@ -220,12 +230,19 @@ form {
   #gamePrices {
     text-align: center;
   }
+
+  .store-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s, text-decoration 0.2s; 
+  }
   
+  .store-link:hover {
+    text-decoration: underline;
+    color: lightgray;
+  }
 
   
-
-  
-
 /* Style for the table itself */
 table {
   width: auto;

@@ -65,12 +65,6 @@ class DealTableManager {
     this.latestDealsData = dealsData;
     return dealsData;
   }
-  
-  // let pageNumber = 1;
-
-  //getting the store data
-  // const storeData = await fetch(`/stores`);
-  // const storeDataJson = await storeData.json();
 
   async loadMoreDeals(lowerPrice, upperPrice) {
     this.loading.style.display = "block";

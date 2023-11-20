@@ -34,7 +34,6 @@ router.get('/getListOfGames', async (req, res) => {
   const { gameName } = req.query;
   try {
     searchResults = await gameService.getListOfGames(gameName);
-    console.log(searchResults);
     const thumbnails = searchResults.map(obj => obj.thumb);
     res.json({ searchResults, thumbnails });
   } catch (error) {
