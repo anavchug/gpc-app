@@ -50,8 +50,7 @@
       const response = await fetch(`/getListOfGames?gameName=${gameName}`);
       const { searchResults, thumbnails } = await response.json();
 
-      searchedGame.textContent = "Search Results For " + gameName;
-      // searchedGame.style.color = "white";
+      searchedGame.textContent = 'Search Results For "' + gameName + '"';
 
       // Clear the previously displayed game cards
       gameCards.innerHTML = '';
