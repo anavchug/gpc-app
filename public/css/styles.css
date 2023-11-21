@@ -7,7 +7,12 @@ body {
   background-color: #181717; /* Change the background color to black */
   margin: 0; /* Reset margin to zero */
   padding: 0; /* Reset padding to zero */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the body takes up at least the full height of the viewport */
 }
+
+
 
 .header {
   background-color: #000000; /* Background color of the header */
@@ -74,7 +79,8 @@ body {
 
 .nav-item a {
   display: block;
-  padding: 5px 10px; /* Change padding to match the search button */
+  padding: 8px 8px; /* Adjust padding if necessary */
+  font-size: 20px; /* Increase font size */
   background-color: #000000;
   color: #fff;
   text-decoration: none;
@@ -117,7 +123,6 @@ body {
 button.btn.btn-primary {
   height: 30px;
 }
-
 
 
 /* Site title styles */
@@ -378,15 +383,18 @@ text-align: center;
 p {
   font-size: 18px;
   margin-top: 10px;
-  color:#45a049;
+  color:#ffffff;
 
 }
 
 #demo, #demo2 {
   font-weight: bold;
   color: #4CAF50;
+  
 }
 /* Code for the footer */
+
+/* Footer styles */
 .footer {
   position: relative;
   left: 0;
@@ -428,7 +436,6 @@ p {
   text-decoration: none;
   color: #fff;
 } 
-
 
 .space-header {
   width: 100%; /* Adjust image width as needed */
@@ -477,5 +484,4 @@ a:focus {
 /* Change link cursor to a pointer on hover to indicate interactivity */
 a:hover {
   cursor: pointer;
-}
 }
