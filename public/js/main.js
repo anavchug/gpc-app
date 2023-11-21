@@ -106,6 +106,8 @@
         gamePrices.style.display = 'none';
         gameCards.style.display = 'block';
         aboutContent.style.display = 'none';
+        searchedGame.style.display = 'block';
+
       }
   });
     
@@ -222,9 +224,6 @@ currencyDropdown.addEventListener('change', async () => {
           }
       }
     }
-    // if(currentPath == '/browse'){
-
-    // }
       priceCells.forEach((priceCell, index) => {
         
         let originalPrice = pricesData.storePrices[index];
