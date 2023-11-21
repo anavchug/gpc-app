@@ -68,7 +68,7 @@ class DealTableManager {
 
   async loadMoreDeals(lowerPrice, upperPrice) {
     this.loading.style.display = "block";
-    const deals = await this.browseDeals(lowerPrice, upperPrice, this.pageNumber);
+    const deals = await this.browseDeals(lowerPrice, upperPrice, this.pageNumber); 
     this.loading.style.display = "none";
 
     if (deals.length === 0) {

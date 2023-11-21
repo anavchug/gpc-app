@@ -13,6 +13,7 @@
     const currencyDropdown = document.getElementById('currencyDropdown');
     const popularDeals = document.querySelector(".popularDeals");
     const searchedGame = document.getElementById("searchedGame");
+    const footer = document.querySelector(".footer");
 
     
     let pricesData;
@@ -21,12 +22,14 @@
       e.preventDefault(); 
 
       currencyDropdown.selectedIndex = 0;
+      // footer.style.display = 'none';
       searchedGame.style.display = 'none';
       gamePrices.style.display = 'none';
       popularDeals.style.display = 'none';
       gameCards.style.display = 'none'; 
       browseContent.style.display = 'block';
       aboutContent.style.display = 'none';
+
   });
   aboutLink.addEventListener('click', function(e) {
     e.preventDefault(); 
@@ -259,7 +262,7 @@ currencyDropdown.addEventListener('change', async () => {
       console.error('Error updating prices:', error);
     }
 });
-window.addEventListener('load', adjustFooterPosition);
-window.addEventListener('resize', adjustFooterPosition);
+// window.addEventListener('load', adjustFooterPosition);
+// window.addEventListener('resize', adjustFooterPosition);
 
       

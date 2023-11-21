@@ -299,12 +299,18 @@ td {
   padding: 0;
   text-align: center; 
   display: block;
+  position: relative;
+  margin-bottom: 40px; 
+  z-index: 2;
 }
-
+#titles-list table {
+  max-height: 300px; /* Set a maximum height for the table */
+}
 .popularDeals {
   /* width: 80%;  */
   max-width: 850px; 
-  margin: auto; 
+  margin: auto;
+  position: relative; 
   
   /* padding: 20px; 
   border: 5px solid #ccc; 
@@ -315,11 +321,6 @@ td {
   font-size: 24px; /* Adjust the title font size */
 }
 
-#titles-list {
-  list-style: none; /* Remove list bullets */
-  padding: 0; /* Remove list padding */
-
-}
 
 #titles-list li {
   margin: 5px 0; /* Add spacing between titles */
@@ -340,6 +341,7 @@ text-align: center;
   border-radius: 10px; 
   max-width: 600px; 
   margin: 0 auto; 
+  margin-bottom: 40px;
 }
 
 .slidecontainer {
@@ -383,24 +385,35 @@ p {
 #demo, #demo2 {
   font-weight: bold;
   color: #4CAF50;
+}
 /* Code for the footer */
 .footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
   background-color: #000;
   color: #fff;
   padding: 20px 0;
   text-align: center;
   width: 100%;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.5s ease; 
 }
 
-.footer-content {
+
+/* .footer-content {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px; /* Add padding to the sides */
+/* } */
+ */
+.footer-text{
+  text-align: center;
 }
-
 .footer-links {
   list-style: none;
   padding: 0;
@@ -414,7 +427,7 @@ p {
 .footer-links a {
   text-decoration: none;
   color: #fff;
-}
+} 
 
 
 .space-header {
