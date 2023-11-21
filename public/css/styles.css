@@ -101,7 +101,8 @@ body {
   color: #fff;
   border: 1px solid #000000;
   cursor: pointer; /* Change cursor to pointer for better user experience */
-  font-size: medium;
+  font-size: 20px;
+  padding: 8px 8px; 
 }
 #currencyDropdown:hover {
   background-color: #000000;
@@ -245,7 +246,7 @@ table {
 
   background-color: #242323; /* Set the background color to black */
   color: #fff;
-  width: 80%;
+  width: 100%;
   text-align: center;
 }
 /* Style for table headers (th) */
