@@ -1,4 +1,6 @@
-/* CSS Styling for Game Price Comparison Application */
+
+/* CSS for GPC App */
+
 body {
   font-family: Arial, sans-serif;
   background-color: #181717; 
@@ -9,10 +11,8 @@ body {
   min-height: 100vh; 
 }
 
-
-
 .header {
-  background-color: #000000;
+  background-color: #000000; 
   color: #fff; 
   padding: 10px 0;
   text-align: center;
@@ -42,7 +42,7 @@ body {
 .header-search form {
   display: flex; 
   align-items: center; 
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .header-search input {
@@ -113,7 +113,7 @@ body {
 .currency-dropdown::after {
   position: absolute;
   top: 50%;
-  right: 5px; 
+  right: 5px; /* Adjust as needed */
   transform: translateY(-50%);
   color: #fff;
 }
@@ -125,7 +125,7 @@ button.btn.btn-primary {
 
 /* Site title styles */
 .site-title {
-  font-size: 24px; 
+  font-size: 24px;
   margin: 0;
 }
 
@@ -173,6 +173,7 @@ form {
     width: 100%;
     text-align: center;
     min-height: 200px; 
+  }
 
   #searchedGame{
     color: white;
@@ -250,11 +251,13 @@ th {
   color: #fff;
 }
 
+
+
 /* Style for table data cells (td) */
 td {
 
   padding: 8px;
-  background-color: #242323; 
+  background-color: #242323;
 }
 
 /* Style for the game name text */
@@ -264,7 +267,6 @@ td {
   font-size: 24px;
 }
 
-
 /* Style for the game image */
 .game-image {
   width: 270px; 
@@ -272,7 +274,6 @@ td {
   display: block; 
   margin: 10px auto; 
 }
-
 
   button#backButton {
     margin: 20px 0;
@@ -300,10 +301,10 @@ td {
   max-height: 300px; 
 }
 .popularDeals {
+  /* width: 80%;  */
   max-width: 850px; 
   margin: auto;
   position: relative; 
-  
 }
 
 .popularDeals h2 {
@@ -376,7 +377,7 @@ p {
   color: #4CAF50;
   
 }
-
+/* Code for the footer */
 html {
   position: relative;
   min-height: 100%;
@@ -386,7 +387,6 @@ html {
   width: 100%; 
   height: auto; 
   display: block;
-
 }
 
 .deal-container {
@@ -399,7 +399,7 @@ html {
   box-shadow: 2px 2px 5px #888888; 
 }
 
-
+/* Style for the link */
 .deal-container a {
   text-decoration: none;
   color: #333; 
@@ -429,10 +429,3 @@ a:hover {
   cursor: pointer;
 }
 
-.screenshot {
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-top: 10px;
-}
