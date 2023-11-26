@@ -47,6 +47,7 @@ class DealTableManager {
         const currentMinValue = Math.round(this.slider.noUiSlider.get()[0]);
         const currentMaxValue = Math.round(this.slider.noUiSlider.get()[1]);
         this.loadMoreDeals(currentMinValue, currentMaxValue);
+        console.log("Loading More deals");
       }
     });
   }
@@ -131,7 +132,8 @@ class DealTableManager {
   
       // Price cell
       const priceCell = document.createElement("td");
-      priceCell.textContent = `$${deal.normalPrice}`;
+      // priceCell.textContent = `$${deal.normalPrice}`;
+      priceCell.textContent = `$${deal.salePrice}`;
       row.appendChild(priceCell);
   
       // Deal Rating cell
@@ -141,8 +143,14 @@ class DealTableManager {
   
       // Release cell
       const releaseCell = document.createElement("td");
-      const releaseDate = new Date(deal.releaseDate * 1000);
-      releaseCell.textContent = releaseDate.toLocaleDateString();
+      if(deal.releaseDate != 0){
+        const releaseDate = new Date(deal.releaseDate * 1000);
+        releaseCell.textContent = releaseDate.toLocaleDateString();
+      }
+      else{
+        releaseCell.textContent = 'N/A';
+      }
+   
       row.appendChild(releaseCell);
   
       this.dealTableBody.appendChild(row);

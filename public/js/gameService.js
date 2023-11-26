@@ -31,8 +31,6 @@ async function getListOfGames(gameName) {
     const gameIdUrl = 'https://www.cheapshark.com/api/1.0/games?id=' + gameId;
     const gameObject = await fetch(gameIdUrl);
     const gameObjectInJson = await gameObject.json();
-    console.log(gameObjectInJson);
-  
     const storeIds = [];
     const storePrices = [];
     const retailPrices = [];

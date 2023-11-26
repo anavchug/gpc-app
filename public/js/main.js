@@ -13,7 +13,7 @@
     const currencyDropdown = document.getElementById('currencyDropdown');
     const popularDeals = document.querySelector(".popularDeals");
     const searchedGame = document.getElementById("searchedGame");
-    const footer = document.querySelector(".footer");
+    // const footer = document.querySelector(".footer");
 
     
     let pricesData;
@@ -96,6 +96,8 @@
         gameCards.innerHTML = 'Sorry, we were unable to find that game. Try searching a different title!';
         gameCards.style.display = 'block';
         gameCards.style.color = 'white';
+        gameCards.style.textAlign = "center";
+        // footer.style.marginBottom = 0;
       }
     });
     // Add an event listener to the back button
@@ -178,7 +180,6 @@
         searchedGame.style.display = 'none';
         gamePrices.style.display = 'block';
         gameCards.style.display = 'none';
-        aboutContent.style.display = 'none';
       } else {
         gamePrices.innerHTML = 'Prices not found for this game';
         gamePrices.style.display = 'block';
@@ -262,7 +263,6 @@ currencyDropdown.addEventListener('change', async () => {
       console.error('Error updating prices:', error);
     }
 });
-// window.addEventListener('load', adjustFooterPosition);
-// window.addEventListener('resize', adjustFooterPosition);
+
 
       

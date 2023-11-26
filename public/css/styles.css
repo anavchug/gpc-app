@@ -1,68 +1,65 @@
-
-/* CSS for the header of the webpage */
-/* Header styles */
-
+/* CSS Styling for Game Price Comparison Application */
 body {
   font-family: Arial, sans-serif;
-  background-color: #181717; /* Change the background color to black */
-  margin: 0; /* Reset margin to zero */
-  padding: 0; /* Reset padding to zero */
+  background-color: #181717; 
+  margin: 0; 
+  padding: 0; 
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensures the body takes up at least the full height of the viewport */
+  min-height: 100vh; 
 }
 
 
 
 .header {
-  background-color: #000000; /* Background color of the header */
-  color: #fff; /* Text color in the header */
+  background-color: #000000;
+  color: #fff; 
   padding: 10px 0;
   text-align: center;
-  display: flex; /* Use flexbox for layout */
-  align-items: center; /* Vertically center items */
-  justify-content: center; /* Center items horizontally */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
 }
 
 
 /* Logo styles */
 .header-logo {
-  margin-right: 20px; /* Adjust the margin for positioning */
+  margin-right: 20px; 
 }
 
 .header-logo img {
-  width: 125px; /* Adjust the logo's width */
-  height: auto; /* Maintain aspect ratio */
+  width: 125px; 
+  height: auto; 
 }
 
 /* Search bar styles */
 .header-search {
-  text-align: center; /* Center the search bar content horizontally */
-  display: flex; /* Use flexbox for layout */
-  align-items: center; /* Vertically center items */
+  text-align: center; 
+  display: flex; 
+  align-items: center; 
 }
 
 .header-search form {
-  display: flex; /* Use flexbox for layout */
-  align-items: center; /* Vertically center items */
-  margin-right: 10px; /* Add margin to separate input and button */
+  display: flex; 
+  align-items: center; 
+  margin-right: 10px; 
 }
 
 .header-search input {
-  width: 300px; /* Set the input field width to 300 pixels */
-  margin: 0; /* Remove margin to make input and button closer */
+  width: 300px; 
+  margin: 0; 
 }
 
 
 .header-search button {
-  margin: 0; /* Remove margin to make input and button closer */
+  margin: 0; 
 }
 
 
 /* Navigation links styles */
 .main-nav {
   display: flex;
-  justify-content: flex-end; /* Align to the right */
+  justify-content: flex-end; 
 }
 
 .nav-list {
@@ -79,8 +76,8 @@ body {
 
 .nav-item a {
   display: block;
-  padding: 8px 8px; /* Adjust padding if necessary */
-  font-size: 20px; /* Increase font size */
+  padding: 8px 8px; 
+  font-size: 20px; 
   background-color: #000000;
   color: #fff;
   text-decoration: none;
@@ -96,11 +93,11 @@ body {
   position: relative;
 }
 #currencyDropdown {
-  padding: 5px 10px; /* Match the padding to other nav items */
+  padding: 5px 10px; 
   background-color: #000000;
   color: #fff;
   border: 1px solid #000000;
-  cursor: pointer; /* Change cursor to pointer for better user experience */
+  cursor: pointer; 
   font-size: 20px;
   padding: 8px 8px; 
 }
@@ -116,7 +113,7 @@ body {
 .currency-dropdown::after {
   position: absolute;
   top: 50%;
-  right: 5px; /* Adjust as needed */
+  right: 5px; 
   transform: translateY(-50%);
   color: #fff;
 }
@@ -128,19 +125,19 @@ button.btn.btn-primary {
 
 /* Site title styles */
 .site-title {
-  font-size: 24px; /* Adjust the font size as needed */
+  font-size: 24px; 
   margin: 0;
 }
 
 
 h2 {
   text-align: center;
-  margin: 20px 0; /* Add margin to push it down from the top */
+  margin: 20px 0; 
 }
 
 form {
   text-align: center;
-  margin: 20px 0; /* Add margin to center the form */
+  margin: 20px 0; 
 }
 
   label {
@@ -166,8 +163,7 @@ form {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    /* Increase the min-height value to make the cards taller */
-    min-height: 200px; /* Adjust the value as needed */
+    min-height: 200px; 
   }
   
   .games-container {
@@ -176,9 +172,7 @@ form {
     align-items: center;
     width: 100%;
     text-align: center;
-    /* Increase the min-height value to make the cards taller */
-    min-height: 200px; /* Adjust the value as needed */
-  }
+    min-height: 200px; 
 
   #searchedGame{
     color: white;
@@ -195,8 +189,7 @@ form {
     align-items: center;
     width: 70%;
     text-align: center;
-    /* Increase the min-height value to make the cards taller */
-    min-height: 75px; /* Adjust the value as needed */
+    min-height: 75px; 
   }
   
   .game-card img {
@@ -244,7 +237,7 @@ table {
   margin: 0 auto;
   border-collapse: collapse;
 
-  background-color: #242323; /* Set the background color to black */
+  background-color: #242323; 
   color: #fff;
   width: 100%;
   text-align: center;
@@ -253,17 +246,15 @@ table {
 th {
  
   padding: 8px;
-  background-color: #242323; /* Set the background color inside the header cells */
+  background-color: #242323; 
   color: #fff;
 }
-
-
 
 /* Style for table data cells (td) */
 td {
 
   padding: 8px;
-  background-color: #242323; /* Set the background color to black */
+  background-color: #242323; 
 }
 
 /* Style for the game name text */
@@ -274,17 +265,13 @@ td {
 }
 
 
-
 /* Style for the game image */
 .game-image {
-  width: 270px; /* Set the width */
-  height: 120px; /* Set the height */
-  display: block; /* Make it a block element */
-  margin: 10px auto; /* Center it horizontally */
+  width: 270px; 
+  height: 120px; 
+  display: block; 
+  margin: 10px auto; 
 }
-
-
-
 
 
   button#backButton {
@@ -310,27 +297,23 @@ td {
   z-index: 2;
 }
 #titles-list table {
-  max-height: 300px; /* Set a maximum height for the table */
+  max-height: 300px; 
 }
 .popularDeals {
-  /* width: 80%;  */
   max-width: 850px; 
   margin: auto;
   position: relative; 
   
-  /* padding: 20px; 
-  border: 5px solid #ccc; 
-  text-align: center;  */ 
 }
 
 .popularDeals h2 {
-  font-size: 24px; /* Adjust the title font size */
+  font-size: 24px; 
 }
 
 
 #titles-list li {
-  margin: 5px 0; /* Add spacing between titles */
-  font-size: 18px; /* Adjust the title font size */
+  margin: 5px 0; 
+  font-size: 18px; 
   color: white;
 }
 
@@ -393,56 +376,17 @@ p {
   color: #4CAF50;
   
 }
-/* Code for the footer */
 
-/* Footer styles */
-.footer {
+html {
   position: relative;
-  left: 0;
-  bottom: 0;
-  background-color: #000;
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-  width: 100%;
-  z-index: 1;
-  opacity: 1;
-  transition: opacity 0.5s ease; 
+  min-height: 100%;
 }
-
-
-/* .footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px; /* Add padding to the sides */
-/* } */
- */
-.footer-text{
-  text-align: center;
-}
-.footer-links {
-  list-style: none;
-  padding: 0;
-  display: flex;
-}
-
-.footer-links li {
-  margin: 0 10px;
-}
-
-.footer-links a {
-  text-decoration: none;
-  color: #fff;
-} 
 
 .space-header {
-  width: 100%; /* Adjust image width as needed */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%; 
+  height: auto; 
   display: block;
-  /* Add any styling for the image here */
+
 }
 
 .deal-container {
@@ -455,7 +399,7 @@ p {
   box-shadow: 2px 2px 5px #888888; 
 }
 
-/* Style for the link */
+
 .deal-container a {
   text-decoration: none;
   color: #333; 
@@ -467,22 +411,28 @@ p {
   height: auto; 
 }
 a {
-  text-decoration: none; /* Remove underline */
-  color: #0078d4; /* Link color */
-  font-weight: bold; /* Make the text bold */
-  transition: color 0.2s; /* Add a smooth color transition on hover */
+  text-decoration: none; 
+  color: #0078d4; 
+  font-weight: bold; 
+  transition: color 0.2s; 
 }
 
 a:hover {
-  color: #0056b3; /* Change link color on hover */
+  color: #0056b3; 
 }
 
-/* Remove the default blue border outline that appears on focus (useful for accessibility) */
 a:focus {
   outline: none;
 }
 
-/* Change link cursor to a pointer on hover to indicate interactivity */
 a:hover {
   cursor: pointer;
+}
+
+.screenshot {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
 }
